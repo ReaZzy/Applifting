@@ -6,13 +6,25 @@ const BundleAnalyzerPlugin =
 const productionConfig = merge(commonConfig, {
   mode: 'production',
   optimization: {
-    minimize: true
+    minimize: true,
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
   },
   output: {
     filename: '[name]-[chunkhash].bundle.js',
   },
   plugins: [
-    new BundleAnalyzerPlugin()
+    new BundleAnalyzerPlugin(),
   ]
 });
 
