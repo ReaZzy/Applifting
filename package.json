@@ -14,6 +14,8 @@
     "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.6"
@@ -25,6 +27,7 @@
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
     "@babel/runtime": "^7.19.0",
+    "@types/jest": "^29.1.1",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@types/styled-components": "^5.1.26",
@@ -50,8 +53,11 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^29.1.2",
+    "jest-environment-jsdom": "^29.1.2",
     "prettier": "^2.7.1",
+    "ts-jest": "^29.0.3",
     "ts-loader": "^9.4.1",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.4",
     "url-loader": "^4.1.1",
     "webpack": "^5.74.0",
