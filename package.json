@@ -9,6 +9,7 @@
   "scripts": {
     "start:dev": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
+    "test": "jest",
     "report": "webpack --config webpack.prod.js --profile --json > stats.json && webpack-bundle-analyzer stats.json",
     "lint": "eslint . src/ --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix"
