@@ -1,14 +1,18 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const Dotenv = require('dotenv-webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-  entry: path.resolve(__dirname, 'src', 'index.tsx'),
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+const aliases = {
+  '@src': path.resolve(__dirname, 'src')
+};
+
+const commonConfig =  {
+  entry: {
+    app: path.resolve(__dirname, 'src', 'index.tsx'),
   },
-  devtool: "source-map",
-  devServer: {
-    port: 3000
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    alias: aliases,
   },
   module: {
     rules: [
@@ -29,11 +33,14 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    clean: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'index.html'),
     }),
+    new Dotenv()
   ],
-}
+};
+
+module.exports = { commonConfig, aliases };

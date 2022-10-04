@@ -1,4 +1,8 @@
 node_modules
-webpack.config.js
+webpack.common.js
+webpack.dev.js
+webpack.prod.js
 .eslintrc.json
 tsconfig.json
+stats.json
+dist

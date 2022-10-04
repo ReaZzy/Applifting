@@ -1,6 +1,9 @@
 # dependencies
 /node_modules
 
+#build
+/dist
+
 # testing
 /coverage
 # production
@@ -16,8 +19,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
-.env*.local
+# env
+.env
 
 # vercel
 .vercel
@@ -31,4 +34,5 @@ yarn-error.log*
 
 # npm
 .eslintcache
+stats.json
 

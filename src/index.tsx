@@ -1,14 +1,14 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import styled from 'styled-components';
-const RedDiv = styled.div`
-  color: red;
-`;
 
-const App = () => {
-  return <RedDiv>React setyo</RedDiv>;
-};
+import App from './App';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(<App />);
+
+if (process.env.NODE_ENV === 'development' && module.hot) {
+  module.hot.accept('./App.tsx', async () => {
+    root.render(<App />);
+  });
+}
