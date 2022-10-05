@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import Spinner from '@src/components/Spinner/Spinner';
 
 const withSuspense =
   <TProps extends Record<string, unknown>>(
@@ -6,7 +7,7 @@ const withSuspense =
   ) =>
   (props: TProps): React.ReactElement => {
     return (
-      <Suspense fallback="Loading ...">
+      <Suspense fallback={<Spinner />}>
         <Component {...props} />
       </Suspense>
     );
