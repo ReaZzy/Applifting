@@ -4,7 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 const aliases = {
-  '@src': path.resolve(__dirname, 'src')
+  '@src': path.resolve(__dirname, 'src'),
+  '@public': path.resolve(__dirname, 'public')
 };
 
 const commonConfig =  {
@@ -16,6 +17,7 @@ const commonConfig =  {
     alias: aliases,
   },
   module: {
+    strictExportPresence: true,
     rules: [
       {
         test: /\.(ts|js)x?$/,
@@ -27,11 +29,8 @@ const commonConfig =  {
         ],
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '/public/static/[name].[ext]'
-        }
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
       },
       {
         test: /\.css$/i,

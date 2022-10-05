@@ -4,6 +4,7 @@ export default {
   moduleDirectories: ['node_modules', __dirname],
   moduleNameMapper: {
     '^@src(.*)$': '<rootDir>/src$1',
+    '^@public(.*)$': '<rootDir>/public',
   },
   testEnvironment: 'jest-environment-jsdom',
   transform: {

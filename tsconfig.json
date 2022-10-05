@@ -20,9 +20,10 @@
     "noEmit": true,
     "paths": {
       "test-utils": ["./utils/test-utils"],
-      "@src/*": ["./src/*"]
+      "@src/*": ["./src/*"],
+      "@public/*": ["./public/*"]
     },
   },
   "exclude": ["node_modules", "**/node_modules/*", "__snapshots__"],
-  "include": ["src", "setupTests.ts", "jest.config.ts"]
+  "include": ["src", "setupTests.ts", "jest.config.ts", "index.d.ts"]
 }
