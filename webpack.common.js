@@ -41,7 +41,7 @@ const commonConfig =  {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '',
+    publicPath: '/',
     clean: true,
   },
   plugins: [
