@@ -1,12 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
+import Router from '@src/router/router';
 
-const RedDiv = styled.div`
-  color: red;
-`;
-
-const App = () => {
-  return <RedDiv>React setup</RedDiv>;
+const App: React.FC = () => {
+  return <Router />;
 };
 
 export default App;

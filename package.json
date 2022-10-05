@@ -7,8 +7,8 @@
   "author": "Maksym <maxim.nebela@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start:dev": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
+    "start:dev": "NODE_ENV=development webpack-dev-server --open --config webpack.dev.js",
+    "build": "NODE_ENV=production webpack --config webpack.prod.js",
     "test": "jest",
     "report": "webpack --config webpack.prod.js --profile --json > stats.json && webpack-bundle-analyzer stats.json",
     "lint": "eslint . src/ --ext .js,.jsx,.ts,.tsx",
@@ -19,6 +19,10 @@
     "@testing-library/react": "^13.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.4",
+    "react-router-dom": "^6.4.1",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
