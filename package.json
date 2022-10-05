@@ -25,8 +25,7 @@
     "react-toastify": "^9.0.8",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
-    "styled-components": "^5.3.6",
-    "url-loader": "^4.1.1"
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
