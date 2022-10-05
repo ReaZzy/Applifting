@@ -1,3 +1,5 @@
+import * as path from 'path';
+
 export default {
   moduleDirectories: ['node_modules', __dirname],
   moduleNameMapper: {
@@ -10,4 +12,5 @@ export default {
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
+  snapshotResolver: path.resolve('__snapshots__', 'snapshotResolver.ts'),
 };

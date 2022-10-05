@@ -6,3 +6,4 @@ webpack.prod.js
 tsconfig.json
 stats.json
 dist
+__snapshots__

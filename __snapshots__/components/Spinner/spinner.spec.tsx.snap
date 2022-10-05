@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Spinner /> snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-gswNZR ljNiVu"
+  >
+    <div
+      class="sc-bcXHqe erIzgA"
+    />
+    <div
+      class="sc-bcXHqe erIzgA"
+    />
+    <div
+      class="sc-bcXHqe erIzgA"
+    />
+  </div>
+</DocumentFragment>
+`;
