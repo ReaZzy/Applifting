@@ -1,37 +1,39 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { PATH_ERROR_PAGE } from '@src/router/paths';
-import globalAxios from 'axios';
+import { getToken, setAccessToken } from '@src/utils/auth.utils';
+import { appAxios } from '@src/utils/axios';
+import axios, { AxiosError } from 'axios';
 
 interface AxiosInterceptorProps {
   children: React.ReactElement;
 }
 
 const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
-  const navigate = useNavigate();
-
   useEffect(() => {
-    globalAxios.interceptors.request.use(
+    appAxios.interceptors.request.use(
       (config) => {
-        if (config && config.headers) {
-          config.headers.Authorization = `AUTH`;
+        const token = getToken();
+        if (config && config.headers && token) {
+          config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
       },
       (error) => {
-        Promise.reject(error);
+        return Promise.reject(error);
       },
     );
 
-    globalAxios.interceptors.response.use(
+    appAxios.interceptors.response.use(
       (res) => res,
-      async (error) => {
+      async (error: AxiosError) => {
+        if (!axios.isAxiosError(error) || !error.response)
+          return toast('There has been an error', {
+            type: 'error',
+          });
         const { response } = error;
-
-        if (error.response) {
+        if (response.status === 403 || response?.data.code === 'UNAUTHORIZED') {
           toast('Login session expired', { type: 'error' });
-          //TODO: LOGOUT
+          setAccessToken(null);
           return Promise.reject(error);
         }
 
@@ -41,14 +43,10 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
           });
         }
 
-        if (response?.status === 404) {
-          navigate(PATH_ERROR_PAGE.page404);
-        }
-
         return Promise.reject(error);
       },
     );
-  }, [navigate]);
+  }, []);
 
   return children;
 };

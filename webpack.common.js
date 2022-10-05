@@ -2,6 +2,7 @@ const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
 const aliases = {
   '@src': path.resolve(__dirname, 'src')
 };
@@ -26,8 +27,11 @@ const commonConfig =  {
         ],
       },
       {
-        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-        type: 'asset/resource',
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '/public/static/[name].[ext]'
+        }
       },
       {
         test: /\.css$/i,
@@ -37,14 +41,15 @@ const commonConfig =  {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '',
     clean: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'index.html'),
+      filename: './index.html',
     }),
-    new Dotenv()
+    new Dotenv(),
   ],
 };
 
