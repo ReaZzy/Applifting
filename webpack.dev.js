@@ -5,7 +5,7 @@ const devConfig = merge(commonConfig, {
   mode: 'development',
   devtool: "source-map",
   devServer: {
-    port: 3001,
+    port: 3000,
     hot: true,
     liveReload: false,
     historyApiFallback: true,
