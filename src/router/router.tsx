@@ -11,6 +11,27 @@ const Router: React.FC = () => {
       path: PATH_APP.root,
       element: <Homepage />,
     },
+    {
+      path: PATH_APP.blog.root,
+      children: [
+        {
+          path: '',
+          element: <Homepage />,
+        },
+        {
+          path: PATH_APP.blog.blogView.name,
+          element: <div>view blog</div>,
+        },
+        {
+          path: PATH_APP.blog.addBlog,
+          element: <div>add blog</div>,
+        },
+        {
+          path: PATH_APP.blog.editBlog.name,
+          element: <div>edit blog</div>,
+        },
+      ],
+    },
   ]);
 };
 

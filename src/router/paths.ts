@@ -15,4 +15,16 @@ export const PATH_ERROR_PAGE: PathsError = {
 
 export const PATH_APP: PathsApp = {
   root: ROUTER_ROOT_APP,
+  blog: {
+    root: '/blog',
+    blogView: {
+      name: '/blog/:blogId',
+      navigate: (blogId) => `/blog/${blogId}`,
+    },
+    addBlog: '/blog/add',
+    editBlog: {
+      name: '/blog/:blogId/edit',
+      navigate: (blogId) => `/blog/${blogId}/edit`,
+    },
+  },
 };
