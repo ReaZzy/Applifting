@@ -12,8 +12,19 @@ declare module 'styled-components' {
         black: string;
         white: string;
       };
+      grey: {
+        light: string;
+      };
       primary: Palette;
       secondary: Palette;
+    };
+    spacing: {
+      common: number;
+    };
+    screen: {
+      phone: string;
+      tablet: string;
+      desktop: string;
     };
   }
 }

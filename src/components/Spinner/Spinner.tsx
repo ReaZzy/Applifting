@@ -2,7 +2,7 @@ import React from 'react';
 import {
   SpinnerItem,
   SpinnerRing,
-} from '@src/components/Spinner/spinner.style';
+} from '@src/components/Spinner/spinner.styles';
 
 const Spinner: React.FC = React.memo(() => {
   return (

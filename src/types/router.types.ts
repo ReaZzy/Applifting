@@ -13,7 +13,7 @@ type Path = Record<
 >;
 
 export interface PathsAuth extends Path {
-  root: string;
+  login: string;
 }
 
 export interface PathsError extends Path {
@@ -29,4 +29,5 @@ export interface PathsApp extends Path {
     addBlog: string;
     editBlog: DirtyRoute<[number]>;
   };
+  about: string;
 }
