@@ -1,7 +1,9 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { queryClient } from '@src/api/queryClient';
 import { GlobalStyles } from '@src/global.styles';
 import AxiosInterceptor from '@src/hocs/AxiosInterceptor';
 import AppRouter from '@src/router/router';
@@ -17,9 +19,11 @@ const App: React.FC = () => {
       <BrowserRouter>
         <ThemeProvider theme={defaultTheme}>
           <Provider store={store}>
-            <AxiosInterceptor>
-              <AppRouter />
-            </AxiosInterceptor>
+            <QueryClientProvider client={queryClient}>
+              <AxiosInterceptor>
+                <AppRouter />
+              </AxiosInterceptor>
+            </QueryClientProvider>
           </Provider>
           <GlobalStyles />
         </ThemeProvider>
