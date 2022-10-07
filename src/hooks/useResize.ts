@@ -1,17 +1,34 @@
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect, useMemo, useState } from 'react';
 
-type UseResize = (onResize: () => void) => void;
+type UseResize = (ref: RefObject<Element>) => {
+  width?: number;
+  height?: number;
+};
 
-export const useResize: UseResize = (onResize) => {
-  const resize = useRef(() => {});
+export const useResize: UseResize = (ref) => {
+  const [sizes, setSizes] = useState<{
+    width?: number;
+    height?: number;
+  }>({
+    width: undefined,
+    height: undefined,
+  });
+
+  const observer = new ResizeObserver(() => {
+    setSizes({
+      width: ref.current?.clientWidth,
+      height: ref.current?.clientHeight,
+    });
+  });
+
   useEffect(() => {
-    resize.current = onResize;
-  }, [onResize]);
-
-  useEffect(() => {
-    window.addEventListener('resize', resize.current);
+    if (ref?.current) {
+      observer.observe(ref.current);
+    }
     return () => {
-      window.removeEventListener('resize', resize.current);
+      observer.disconnect();
     };
-  }, []);
+  }, [observer, ref]);
+
+  return { width: sizes.width, height: sizes.height };
 };

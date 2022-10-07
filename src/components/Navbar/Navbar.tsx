@@ -23,17 +23,7 @@ import { useTypedSelector } from '@src/store/store.hooks';
 const Navbar: React.FC = React.memo(() => {
   const navbarRef = useRef<HTMLDivElement>(null);
   const accessToken = useTypedSelector(accessTokenSelector);
-  const [navbarMarginBottom, setNavbarMarginBottom] = useState(
-    navbarRef.current?.clientHeight,
-  );
-
-  useResize(() => {
-    setNavbarMarginBottom(navbarRef.current?.clientHeight);
-  });
-
-  useLayoutEffect(() => {
-    setNavbarMarginBottom(navbarRef.current?.clientHeight);
-  }, []);
+  const { height } = useResize(navbarRef);
 
   const getUserOrLoginMenu = useMemo(() => {
     if (!accessToken) {
@@ -47,7 +37,7 @@ const Navbar: React.FC = React.memo(() => {
       </>
     );
   }, [accessToken]);
-
+  console.log(height);
   return (
     <>
       <NavbarWrapper ref={navbarRef}>
@@ -62,7 +52,7 @@ const Navbar: React.FC = React.memo(() => {
           <NavbarRightItems>{getUserOrLoginMenu}</NavbarRightItems>
         </NavbarItems>
       </NavbarWrapper>
-      <NavbarMargin margin={navbarMarginBottom} />
+      <NavbarMargin margin={height} />
     </>
   );
 });
