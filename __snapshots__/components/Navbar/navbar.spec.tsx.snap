@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Navbar /> snapshot 1`] = `
+<DocumentFragment>
+  <nav
+    class="sc-bcXHqe VGQoE"
+  >
+    <div
+      class="sc-gswNZR jkResL"
+    >
+      <div
+        class="sc-dkrFOg sc-hLBbgP cdytEU"
+      >
+        <a
+          href="/blog"
+        >
+          <logo.svg
+            height="32px"
+            width="32px"
+          />
+        </a>
+        <a
+          href="/blog"
+        >
+          Recent Articles
+        </a>
+        <a
+          href="/about"
+        >
+          About
+        </a>
+      </div>
+      <div
+        class="sc-dkrFOg sc-eDvSVe cdytEU eHkolv"
+      >
+        <a
+          href="/login"
+        >
+          Log in
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div
+    class="sc-jSUZER cJxtRK"
+  />
+</DocumentFragment>
+`;
