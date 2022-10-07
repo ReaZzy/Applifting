@@ -19,12 +19,6 @@ const UserMenu: React.FC = React.memo(() => {
   // don't use memo because object is too small, and it's easier to generate it than use memo
   const userMenuActions: Array<DropdownActionType> = [
     {
-      component: <NavLink to={PATH_APP.blog.root}>My Articles</NavLink>,
-    },
-    {
-      component: <NavLink to={PATH_APP.blog.addBlog}>Create Article</NavLink>,
-    },
-    {
       component: <div>Logout</div>,
       action: () => dispatch(setAccessToken(null)),
     },

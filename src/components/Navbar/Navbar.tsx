@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Logo from '@public/static/icons/logo.svg';
 import {
   NavbarItems,
@@ -39,7 +39,13 @@ const Navbar: React.FC = React.memo(() => {
     if (!accessToken) {
       return <Link to={PATH_AUTH.login}>Log in</Link>;
     }
-    return <UserMenu />;
+    return (
+      <>
+        <NavLink to={PATH_APP.blog.root}>My Articles</NavLink>
+        <NavLink to={PATH_APP.blog.addBlog}>Create Article</NavLink>
+        <UserMenu />
+      </>
+    );
   }, [accessToken]);
 
   return (
@@ -47,11 +53,11 @@ const Navbar: React.FC = React.memo(() => {
       <NavbarWrapper ref={navbarRef}>
         <NavbarItems>
           <NavbarLeftItems>
-            <Link to={PATH_APP.blog.root}>
+            <NavLink to={PATH_APP.root}>
               <Logo width="32px" height="32px" />
-            </Link>
-            <Link to={PATH_APP.blog.root}>Recent Articles</Link>
-            <Link to={PATH_APP.about}>About</Link>
+            </NavLink>
+            <NavLink to={PATH_APP.root}>Recent Articles</NavLink>
+            <NavLink to={PATH_APP.about}>About</NavLink>
           </NavbarLeftItems>
           <NavbarRightItems>{getUserOrLoginMenu}</NavbarRightItems>
         </NavbarItems>
