@@ -10,7 +10,7 @@ import { RequireOnlyOne } from '@src/types/common.types';
 interface ActionType {
   label?: string;
   component?: React.ReactElement;
-  action: () => unknown;
+  action?: () => unknown;
 }
 
 export type DropdownActionType = RequireOnlyOne<
@@ -31,7 +31,9 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = React.memo(
       return actions?.map((action, index) => (
         <DropdownMenuItem
           key={`dropdownItem-${action?.label}-${index}`}
-          onClick={action.action}
+          onClick={
+            typeof action.action === 'function' ? action.action : () => {}
+          }
         >
           {action.component || action.label}
         </DropdownMenuItem>

@@ -22,16 +22,17 @@ const AppRouter: React.FC = () =>
           path: PATH_APP.blog.root,
           children: [
             {
-              path: '',
-              element: <Homepage />,
-            },
-            {
               path: PATH_APP.blog.blogView.name,
               element: <div>view blog</div>,
             },
+
             {
               element: <AuthGuard />,
               children: [
+                {
+                  index: true,
+                  element: <div>My articles</div>,
+                },
                 {
                   path: PATH_APP.blog.addBlog,
                   element: <div>add blog</div>,

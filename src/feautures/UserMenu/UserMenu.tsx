@@ -1,7 +1,9 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Dropdown, {
   DropdownActionType,
 } from '@src/components/Dropdown/Dropdown';
+import { PATH_APP } from '@src/router/paths';
 import {
   accessTokenSelector,
   setAccessToken,
@@ -16,6 +18,12 @@ const UserMenu: React.FC = React.memo(() => {
 
   // don't use memo because object is too small, and it's easier to generate it than use memo
   const userMenuActions: Array<DropdownActionType> = [
+    {
+      component: <NavLink to={PATH_APP.blog.root}>My Articles</NavLink>,
+    },
+    {
+      component: <NavLink to={PATH_APP.blog.addBlog}>Create Article</NavLink>,
+    },
     {
       component: <div>Logout</div>,
       action: () => dispatch(setAccessToken(null)),

@@ -14,7 +14,7 @@ import {
   NavbarRightItems,
   NavbarWrapper,
 } from '@src/components/Navbar/navbar.styles';
-import UserMenu from '@src/components/UserMenu/UserMenu';
+import UserMenu from '@src/feautures/UserMenu/UserMenu';
 import { useResize } from '@src/hooks/useResize';
 import { PATH_APP, PATH_AUTH } from '@src/router/paths';
 import { accessTokenSelector } from '@src/store/slices/auth.slice';
