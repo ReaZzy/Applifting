@@ -1,38 +1,33 @@
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '@src/types/store.types';
 import {
-  type PayloadAction,
-  createSelector,
-  createSlice,
-} from '@reduxjs/toolkit';
-import { RootState } from '@src/types/store';
+  getTokenFromLocalStorage,
+  setAccessTokenToLocalStorage,
+} from '@src/utils/auth.utils';
 
 interface AuthState {
-  value: number;
+  accessToken: string | null;
 }
 
 const initialState: AuthState = {
-  value: 0,
+  accessToken: getTokenFromLocalStorage() ?? null,
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    setAccessToken: (
+      state,
+      payload: PayloadAction<AuthState['accessToken']>,
+    ) => {
+      state.accessToken = payload.payload;
+      setAccessTokenToLocalStorage(payload.payload);
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = authSlice.actions;
-export const valueSelector = createSelector(
-  (state: RootState) => state.auth.value,
-  (state) => state,
-);
+export const { setAccessToken } = authSlice.actions;
+export const accessTokenSelector = (state: RootState) => state.auth.accessToken;
 
 export const authReducer = authSlice.reducer;

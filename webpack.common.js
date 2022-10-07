@@ -9,6 +9,7 @@ const aliases = {
 };
 
 const commonConfig =  {
+  mode: process.env.NODE_ENV ?? 'development',
   entry: {
     app: path.resolve(__dirname, 'src', 'index.tsx'),
   },

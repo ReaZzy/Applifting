@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getToken, setAccessToken } from '@src/utils/auth.utils';
+import { PATH_AUTH } from '@src/router/paths';
+import {
+  accessTokenSelector,
+  setAccessToken,
+} from '@src/store/slices/auth.slice';
+import { useTypedDispatch, useTypedSelector } from '@src/store/store.hooks';
+import { getTokenFromLocalStorage } from '@src/utils/auth.utils';
 import { appAxios } from '@src/utils/axios';
 import axios, { AxiosError } from 'axios';
 
@@ -9,10 +16,13 @@ interface AxiosInterceptorProps {
 }
 
 const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
+  const accessToken = useTypedSelector(accessTokenSelector);
+  const dispatch = useTypedDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     appAxios.interceptors.request.use(
       (config) => {
-        const token = getToken();
+        const token = accessToken ?? getTokenFromLocalStorage();
         if (config && config.headers && token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -32,12 +42,13 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
           });
         const { response } = error;
         if (response.status === 403 || response?.data.code === 'UNAUTHORIZED') {
-          toast('Login session expired', { type: 'error' });
-          setAccessToken(null);
+          toast('Unauthorized', { type: 'error' });
+          dispatch(setAccessToken(null));
+          navigate(PATH_AUTH.login);
           return Promise.reject(error);
         }
 
-        if (response?.status === 500) {
+        if ([500, 415].includes(response?.status)) {
           toast('There has been an error', {
             type: 'error',
           });
@@ -46,7 +57,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
         return Promise.reject(error);
       },
     );
-  }, []);
+  }, [accessToken, dispatch, navigate]);
 
   return children;
 };
