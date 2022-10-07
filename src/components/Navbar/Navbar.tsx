@@ -1,4 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '@public/static/icons/logo.svg';
 import {
@@ -8,13 +14,15 @@ import {
   NavbarRightItems,
   NavbarWrapper,
 } from '@src/components/Navbar/navbar.styles';
+import UserMenu from '@src/components/UserMenu/UserMenu';
 import { useResize } from '@src/hooks/useResize';
 import { PATH_APP, PATH_AUTH } from '@src/router/paths';
+import { accessTokenSelector } from '@src/store/slices/auth.slice';
+import { useTypedSelector } from '@src/store/store.hooks';
 
-interface NavbarProps {}
-
-const Navbar: React.FC<NavbarProps> = React.memo(() => {
+const Navbar: React.FC = React.memo(() => {
   const navbarRef = useRef<HTMLDivElement>(null);
+  const accessToken = useTypedSelector(accessTokenSelector);
   const [navbarMarginBottom, setNavbarMarginBottom] = useState(
     navbarRef.current?.clientHeight,
   );
@@ -27,6 +35,13 @@ const Navbar: React.FC<NavbarProps> = React.memo(() => {
     setNavbarMarginBottom(navbarRef.current?.clientHeight);
   }, []);
 
+  const getUserOrLoginMenu = useMemo(() => {
+    if (!accessToken) {
+      return <Link to={PATH_AUTH.login}>Log in</Link>;
+    }
+    return <UserMenu />;
+  }, [accessToken]);
+
   return (
     <>
       <NavbarWrapper ref={navbarRef}>
@@ -38,9 +53,7 @@ const Navbar: React.FC<NavbarProps> = React.memo(() => {
             <Link to={PATH_APP.blog.root}>Recent Articles</Link>
             <Link to={PATH_APP.about}>About</Link>
           </NavbarLeftItems>
-          <NavbarRightItems>
-            <Link to={PATH_AUTH.login}>Log in</Link>
-          </NavbarRightItems>
+          <NavbarRightItems>{getUserOrLoginMenu}</NavbarRightItems>
         </NavbarItems>
       </NavbarWrapper>
       <NavbarMargin margin={navbarMarginBottom} />

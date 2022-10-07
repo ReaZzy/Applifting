@@ -39,10 +39,14 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
         if (!axios.isAxiosError(error) || !error.response)
           return toast('There has been an error', {
             type: 'error',
+            toastId: 'axios-error',
           });
         const { response } = error;
         if (response.status === 403 || response?.data.code === 'UNAUTHORIZED') {
-          toast('Unauthorized', { type: 'error' });
+          toast('Unauthorized', {
+            type: 'error',
+            toastId: 'unauthorized-error',
+          });
           dispatch(setAccessToken(null));
           navigate(PATH_AUTH.login);
           return Promise.reject(error);
@@ -51,6 +55,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
         if ([500, 415].includes(response?.status)) {
           toast('There has been an error', {
             type: 'error',
+            toastId: 'server-error',
           });
         }
 

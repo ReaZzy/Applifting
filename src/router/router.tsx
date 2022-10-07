@@ -3,7 +3,7 @@ import { useRoutes } from 'react-router-dom';
 import AuthGuard from '@src/guards/AuthGuard';
 import GoBackFromAuthGuard from '@src/guards/GoBackFromAuthGuard';
 import withSuspense from '@src/hocs/withSuspense';
-import DefaultLayout from '@src/layouts/Default.layout';
+import DefaultLayout from '@src/layouts/defaultLayout/Default.layout';
 import { PATH_APP, PATH_AUTH } from '@src/router/paths';
 
 const Homepage = withSuspense(React.lazy(() => import('@src/pages/Homepage')));

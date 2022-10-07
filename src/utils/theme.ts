@@ -12,6 +12,7 @@ export const defaultTheme: DefaultTheme = {
     },
     grey: {
       light: '#F8F9FA',
+      main: '#aeaeb2',
     },
     secondary: {
       main: '#709fb0',

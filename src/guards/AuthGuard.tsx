@@ -13,7 +13,10 @@ interface AuthGuardProps {
 const AuthGuard: React.FC<AuthGuardProps> = ({ redirectPath, children }) => {
   const accessToken = useTypedSelector(accessTokenSelector);
   if (!accessToken) {
-    toast('You must be authorized to view this page', { type: 'error' });
+    toast('You must be authorized to view this page', {
+      type: 'error',
+      toastId: 'redirect-no-auth',
+    });
     return <Navigate to={redirectPath ?? PATH_AUTH.login} replace />;
   }
   return children || <Outlet />;

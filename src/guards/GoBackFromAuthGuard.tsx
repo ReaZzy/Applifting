@@ -15,7 +15,10 @@ const GoBackFromAuthGuard: React.FC<GoBackFromAuthGuardProps> = ({
   const accessToken = useTypedSelector(accessTokenSelector);
 
   if (accessToken) {
-    toast('You are already logged in', { type: 'info' });
+    toast('You are already logged in', {
+      type: 'info',
+      toastId: `redirect-from-login-${accessToken}`,
+    });
     if (window.history.length > 0) {
       // react-router-dom v6 types problem
       return <Navigate to={-1 as To} replace />;

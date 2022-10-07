@@ -14,6 +14,7 @@ declare module 'styled-components' {
       };
       grey: {
         light: string;
+        main: string;
       };
       primary: Palette;
       secondary: Palette;

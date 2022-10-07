@@ -1,6 +1,8 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { PATH_APP, PATH_AUTH } from '@src/router/paths';
 import { useLoginMutation } from '@src/store/api/auth.api';
 import {
   accessTokenSelector,
@@ -16,6 +18,7 @@ const Login: React.FC = () => {
   const [login] = useLoginMutation();
   const auth = useTypedSelector(accessTokenSelector);
   const dispatch = useTypedDispatch();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -29,8 +32,8 @@ const Login: React.FC = () => {
     password,
   }) => {
     const res = await login({ username, password }).unwrap();
-    console.log(res.access_token);
     dispatch(setAccessToken(res.access_token));
+    navigate(PATH_APP.root);
   };
 
   return (

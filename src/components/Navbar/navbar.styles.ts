@@ -1,4 +1,4 @@
-import { deviceMaxWidth } from '@src/utils/theme';
+import { deviceMaxWidth, deviceMinWidth } from '@src/utils/theme';
 import styled from 'styled-components';
 
 export const NavbarWrapper = styled.nav`
@@ -21,6 +21,10 @@ export const NavbarItems = styled.div`
   padding-left: ${({ theme }) => theme.spacing.common * 2}px;
   padding-right: ${({ theme }) => theme.spacing.common * 2}px;
   justify-content: space-between;
+
+  @media ${deviceMinWidth.tablet} {
+    padding: 0;
+  }
 
   @media ${deviceMaxWidth.phone} {
     flex-direction: column;

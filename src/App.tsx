@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { GlobalStyles } from '@src/components/global.styles';
+import { GlobalStyles } from '@src/global.styles';
 import AxiosInterceptor from '@src/hocs/AxiosInterceptor';
 import AppRouter from '@src/router/router';
 import { store } from '@src/store/store';
@@ -13,17 +13,19 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={defaultTheme}>
-        <Provider store={store}>
-          <AxiosInterceptor>
-            <AppRouter />
-          </AxiosInterceptor>
-        </Provider>
-        <ToastContainer />
-        <GlobalStyles />
-      </ThemeProvider>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <ThemeProvider theme={defaultTheme}>
+          <Provider store={store}>
+            <AxiosInterceptor>
+              <AppRouter />
+            </AxiosInterceptor>
+          </Provider>
+          <GlobalStyles />
+        </ThemeProvider>
+      </BrowserRouter>
+      <ToastContainer />
+    </>
   );
 };
 
