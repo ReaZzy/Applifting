@@ -3,7 +3,7 @@
 exports[`<DefaultLayout /> snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="sc-gKPRtg jQwYkD"
+    class="sc-jrcTuL goQkPA"
   >
     <nav
       class="sc-bcXHqe VGQoE"
@@ -15,7 +15,9 @@ exports[`<DefaultLayout /> snapshot 1`] = `
           class="sc-dkrFOg sc-hLBbgP cdytEU"
         >
           <a
-            href="/blog"
+            aria-current="page"
+            class="active"
+            href="/"
           >
             <logo.svg
               height="32px"
@@ -23,11 +25,14 @@ exports[`<DefaultLayout /> snapshot 1`] = `
             />
           </a>
           <a
-            href="/blog"
+            aria-current="page"
+            class="active"
+            href="/"
           >
             Recent Articles
           </a>
           <a
+            class=""
             href="/about"
           >
             About
@@ -48,7 +53,7 @@ exports[`<DefaultLayout /> snapshot 1`] = `
       class="sc-jSUZER cJxtRK"
     />
     <div
-      class="sc-iBYQkv iYdnqJ"
+      class="sc-kDvujY oJgQk"
     />
   </div>
 </DocumentFragment>

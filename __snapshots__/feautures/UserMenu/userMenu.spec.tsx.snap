@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserMenu /> snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bcXHqe jfaJst"
+  >
+    <div
+      class="sc-gswNZR"
+    >
+      undefined
+    </div>
+  </div>
+</DocumentFragment>
+`;
