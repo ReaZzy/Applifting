@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import Dropdown, {
   DropdownActionType,
@@ -16,13 +16,15 @@ const UserMenu: React.FC = React.memo(() => {
   const accessToken = useTypedSelector(accessTokenSelector);
   const dispatch = useTypedDispatch();
 
-  // don't use memo because object is too small, and it's easier to generate it than use memo
-  const userMenuActions: Array<DropdownActionType> = [
-    {
-      component: <div>Logout</div>,
-      action: () => dispatch(setAccessToken(null)),
-    },
-  ];
+  const userMenuActions: Array<DropdownActionType> = useMemo(
+    () => [
+      {
+        component: <div>Logout</div>,
+        action: () => dispatch(setAccessToken(null)),
+      },
+    ],
+    [dispatch],
+  );
   return (
     <Dropdown
       menuButton={`${accessToken?.split('-')[0]}`}

@@ -37,7 +37,7 @@ const Navbar: React.FC = React.memo(() => {
       </>
     );
   }, [accessToken]);
-  console.log(height);
+
   return (
     <>
       <NavbarWrapper ref={navbarRef}>

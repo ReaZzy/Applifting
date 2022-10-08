@@ -1,7 +1,5 @@
 import React from 'react';
 import { Navigate, Outlet, To } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { QueryStatus } from '@reduxjs/toolkit/query';
 import { PATH_APP } from '@src/router/paths';
 import { accessTokenSelector } from '@src/store/slices/auth.slice';
 import { useTypedSelector } from '@src/store/store.hooks';
@@ -16,10 +14,6 @@ const GoBackFromAuthGuard: React.FC<GoBackFromAuthGuardProps> = ({
   const accessToken = useTypedSelector(accessTokenSelector);
 
   if (accessToken) {
-    toast('You are already logged in', {
-      type: 'info',
-      toastId: `redirect-from-login-${accessToken}`,
-    });
     if (window.history.length > 0) {
       // react-router-dom v6 types problem
       return <Navigate to={-1 as To} replace />;

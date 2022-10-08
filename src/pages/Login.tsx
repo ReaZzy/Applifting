@@ -1,9 +1,7 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLoginMutation } from '@src/api/auth.api';
-import { PATH_APP } from '@src/router/paths';
 import {
   accessTokenSelector,
   setAccessToken,
@@ -18,7 +16,6 @@ const Login: React.FC = () => {
   const { mutateAsync, error } = useLoginMutation();
   const auth = useTypedSelector(accessTokenSelector);
   const dispatch = useTypedDispatch();
-  const navigate = useNavigate();
 
   const {
     register,
@@ -34,7 +31,6 @@ const Login: React.FC = () => {
   }) => {
     const res = await mutateAsync({ username, password });
     if (res.status.toString().startsWith('2')) {
-      navigate(PATH_APP.root);
       dispatch(setAccessToken(res.data.access_token));
     }
   };
