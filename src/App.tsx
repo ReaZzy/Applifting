@@ -28,7 +28,7 @@ const App: React.FC = () => {
           <GlobalStyles />
         </ThemeProvider>
       </BrowserRouter>
-      <ToastContainer />
+      <ToastContainer pauseOnFocusLoss={false} />
     </>
   );
 };

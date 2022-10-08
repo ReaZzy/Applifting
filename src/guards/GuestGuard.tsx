@@ -8,9 +8,7 @@ interface GoBackFromAuthGuardProps {
   children?: React.ReactElement;
 }
 
-const GoBackFromAuthGuard: React.FC<GoBackFromAuthGuardProps> = ({
-  children,
-}) => {
+const GuestGuard: React.FC<GoBackFromAuthGuardProps> = ({ children }) => {
   const accessToken = useTypedSelector(accessTokenSelector);
 
   if (accessToken) {
@@ -23,4 +21,4 @@ const GoBackFromAuthGuard: React.FC<GoBackFromAuthGuardProps> = ({
   return children || <Outlet />;
 };
 
-export default GoBackFromAuthGuard;
+export default GuestGuard;

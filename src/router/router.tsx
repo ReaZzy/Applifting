@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import AuthGuard from '@src/guards/AuthGuard';
-import GoBackFromAuthGuard from '@src/guards/GoBackFromAuthGuard';
+import GuestGuard from '@src/guards/GuestGuard';
 import withSuspense from '@src/hocs/withSuspense';
 import DefaultLayout from '@src/layouts/defaultLayout/Default.layout';
 import { PATH_APP, PATH_AUTH } from '@src/router/paths';
@@ -47,7 +47,7 @@ const AppRouter: React.FC = () =>
         },
         { path: PATH_APP.about, element: <div>about</div> },
         {
-          element: <GoBackFromAuthGuard />,
+          element: <GuestGuard />,
           children: [
             {
               path: PATH_AUTH.login,
