@@ -20,12 +20,16 @@ const Navbar: React.FC = React.memo(() => {
   const { height } = useResize(navbarRef);
 
   const getNavbarLink = useCallback(
-    (path: string, content: React.ReactElement | string, primary?: boolean) => {
+    (
+      path: string,
+      content: React.ReactElement | string,
+      primaryLink?: boolean,
+    ) => {
       return (
         <NavbarLink
           className={({ isActive }) => (isActive ? 'active' : '')}
           to={path}
-          primary={primary}
+          primaryLink={primaryLink}
           end
         >
           {content}

@@ -47,5 +47,8 @@ declare module 'styled-components' {
       common: string;
       darken: string;
     };
+    zIndex: {
+      navbar: number;
+    };
   }
 }

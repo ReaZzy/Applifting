@@ -33,15 +33,6 @@ export const ButtonWrapper = styled.button<{
     color: ${({ theme }) => theme.palette.common.white};
   }
 
-  ${({ isLoading }) =>
-    isLoading &&
-    css`
-      cursor: inherit;
-      background-color: ${({ theme }) => theme.palette.grey.main};
-      color: ${({ theme }) => theme.palette.common.white};
-      pointer-events: none;
-    `};
-
   ${({ primary }) =>
     primary &&
     css`
@@ -53,6 +44,15 @@ export const ButtonWrapper = styled.button<{
     fullWidth &&
     css`
       max-width: inherit;
+    `};
+
+  ${({ isLoading }) =>
+    isLoading &&
+    css`
+      cursor: inherit;
+      background-color: ${({ theme }) => theme.palette.grey.main};
+      color: ${({ theme }) => theme.palette.common.white};
+      pointer-events: none;
     `};
 `;
 

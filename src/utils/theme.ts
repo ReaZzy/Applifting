@@ -48,6 +48,9 @@ export const defaultTheme: DefaultTheme = {
     common: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
     darken: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
   },
+  zIndex: {
+    navbar: 10,
+  },
 } as const;
 
 export const deviceMaxWidth = {

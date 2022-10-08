@@ -10,6 +10,7 @@ export const NavbarWrapper = styled.nav`
   height: max-content;
   display: flex;
   top: 0;
+  z-index: ${({ theme }) => theme.zIndex.navbar};
 `;
 
 export const NavbarItems = styled.div`
@@ -47,13 +48,15 @@ const ItemsSection = styled.div`
 `;
 export const NavbarLink = styled(NavLink)<{
   isActive?: string;
-  primary?: boolean;
+  primaryLink?: boolean;
 }>`
-  color: ${({ theme, primary }) =>
-    primary ? theme.palette.primary.main : theme.palette.typography.light};
+  color: ${({ theme, primaryLink }) =>
+    primaryLink ? theme.palette.primary.main : theme.palette.typography.light};
   &.active {
-    color: ${({ theme, primary }) =>
-      primary ? theme.palette.primary.darken : theme.palette.typography.main};
+    color: ${({ theme, primaryLink }) =>
+      primaryLink
+        ? theme.palette.primary.darken
+        : theme.palette.typography.main};
   }
 `;
 

@@ -1,57 +1,55 @@
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLoginMutation } from '@src/api/auth.api';
 import Button from '@src/components/Button/Button';
 import { Flex, Title } from '@src/components/styled';
 import RHFTextField from '@src/components/TextField/RHFTextField';
 import { CreateNewArticleFormWrapper } from '@src/feautures/CreateNewArticleForm/createNewArticleForm.styles';
-import { setAccessToken } from '@src/store/slices/auth.slice';
-import { useTypedDispatch } from '@src/store/store.hooks';
 import {
-  AuthApiLoginQuery,
-  loginFormValidationSchema,
-} from '@src/types/auth.api.types';
+  CreateNewArticleQuery,
+  createNewArticleValidationSchema,
+} from '@src/types/articles.api.types';
+import { ImagesAPIResponse } from '@src/types/images.api.types';
+import { appAxios } from '@src/utils/axios';
+import MarkdownEditor from '@uiw/react-markdown-editor';
 import axios from 'axios';
-import { Editor, EditorState } from 'draft-js';
-
-import 'draft-js/dist/Draft.css';
 
 const CreateNewArticleForm: React.FC = React.memo(() => {
-  const { mutateAsync } = useLoginMutation();
-  const dispatch = useTypedDispatch();
-
   const {
     register,
     handleSubmit,
     resetField,
     setError,
-    watch,
     control,
-    formState: { errors, isSubmitting, isDirty },
-  } = useForm<AuthApiLoginQuery>({
-    resolver: zodResolver(loginFormValidationSchema),
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<CreateNewArticleQuery>({
+    resolver: zodResolver(createNewArticleValidationSchema),
     criteriaMode: 'all',
-    defaultValues: {
-      password: EditorState.createEmpty(),
-    },
   });
 
-  const onSubmit: SubmitHandler<AuthApiLoginQuery> = async ({
-    username,
-    password,
+  const onSubmit: SubmitHandler<CreateNewArticleQuery> = async ({
+    perex,
+    content,
+    title,
+    image,
   }) => {
     try {
-      const res = await mutateAsync({ username, password });
-      if (res.status.toString().startsWith('2')) {
-        return dispatch(setAccessToken(res.data.access_token));
-      }
+      const formData = new FormData();
+      formData.append('image', image[0]);
+      const res = await appAxios.post<ImagesAPIResponse>('/images', formData);
+      await appAxios.post<CreateNewArticleQuery>('/articles', {
+        perex,
+        content,
+        title,
+        imageId: res.data[0]?.imageId,
+      });
     } catch (err) {
-      resetField('password');
+      resetField('title');
 
       if (err instanceof axios.AxiosError) {
         setError(
-          'password',
+          'title',
           {
             type: 'server',
             message: err.response?.data?.message ?? 'Something went wrong',
@@ -61,25 +59,43 @@ const CreateNewArticleForm: React.FC = React.memo(() => {
       }
     }
   };
+
+  const handleDeleteImage = () => {
+    resetField('image');
+  };
   return (
     <CreateNewArticleFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Flex gap="32px" alignItems="center">
         <Title>Create new article</Title>
-        <Button type="submit">Publish article</Button>
+        <Button type="submit" isLoading={isSubmitting}>
+          Publish article
+        </Button>
       </Flex>
 
-      <RHFTextField<AuthApiLoginQuery>
+      <RHFTextField<CreateNewArticleQuery>
         name="title"
         label="Article Title"
         placeholder="My first article"
         errors={errors}
         register={register}
       />
+      <input type="file" {...register('image')} />
+      {watch('image') && <img src={URL.createObjectURL(watch('image')[0])} />}
+      <Button primary={false} onClick={handleDeleteImage}>
+        delete image
+      </Button>
+      <RHFTextField<CreateNewArticleQuery>
+        name="perex"
+        label="Article Perex"
+        placeholder="My first article perex"
+        errors={errors}
+        register={register}
+      />
       <Controller
-        name="password"
+        name="content"
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Editor editorState={value} onChange={onChange} />
+          <MarkdownEditor value={value} onChange={onChange} />
         )}
       />
     </CreateNewArticleFormWrapper>

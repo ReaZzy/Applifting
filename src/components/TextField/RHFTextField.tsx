@@ -9,7 +9,6 @@ import {
 import { ErrorMessage } from '@hookform/error-message';
 import TextField, { InputProps } from '@src/components/TextField/TextField';
 import { ErrorMessageText } from '@src/components/TextField/textField.styles';
-import equal from 'fast-deep-equal/react';
 
 type RHFTextFieldProps<TFormValues extends Record<string, unknown>> = {
   name: Path<TFormValues>;
@@ -48,10 +47,4 @@ export const RHFTextField = <T extends Record<string, unknown>>({
 };
 
 RHFTextField.displayName = 'RHFTextField';
-
-// Can't pass generic to react.memo
-// And have some strange behaviour with re-renders,
-// so I need to compare it by myself
-export default React.memo(RHFTextField, (prevProps, nextProps) => {
-  return equal(prevProps, nextProps);
-}) as typeof RHFTextField;
+export default RHFTextField;
