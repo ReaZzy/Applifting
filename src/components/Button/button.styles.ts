@@ -20,6 +20,7 @@ export const ButtonWrapper = styled.button<{
   outline: none;
   padding: 6px 12px;
   transition: all 0.3s;
+  font-size: ${({ theme }) => theme.typography.md};
 
   &:hover {
     box-shadow: ${({ theme }) => theme.shadow.darken};

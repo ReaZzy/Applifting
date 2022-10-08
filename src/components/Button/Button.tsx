@@ -13,7 +13,7 @@ export type ButtonProps = {
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ primary, fullWidth, children, isLoading, ...rest }, ref) => {
+  ({ primary = true, fullWidth, children, isLoading, ...rest }, ref) => {
     return (
       <ButtonWrapper
         ref={ref}

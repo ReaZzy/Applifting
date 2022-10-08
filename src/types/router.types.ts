@@ -22,11 +22,11 @@ export interface PathsError extends RoutePath {
 
 export interface PathsApp extends RoutePath {
   root: string;
-  blog: {
+  article: {
     root: string;
-    blogView: DirtyRoute<[number]>;
-    addBlog: string;
-    editBlog: DirtyRoute<[number]>;
+    articleView: DirtyRoute<[number]>;
+    addArticle: string;
+    editArticle: DirtyRoute<[number]>;
   };
   about: string;
 }

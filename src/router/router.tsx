@@ -8,6 +8,9 @@ import { PATH_APP, PATH_AUTH } from '@src/router/paths';
 
 const Homepage = withSuspense(React.lazy(() => import('@src/pages/Homepage')));
 const Login = withSuspense(React.lazy(() => import('@src/pages/Login/Login')));
+const CreateNewArticle = withSuspense(
+  React.lazy(() => import('@src/pages/CreateNewArticle/CreateNewArticle')),
+);
 
 const AppRouter: React.FC = () =>
   useRoutes([
@@ -19,10 +22,10 @@ const AppRouter: React.FC = () =>
           element: <Homepage />,
         },
         {
-          path: PATH_APP.blog.root,
+          path: PATH_APP.article.root,
           children: [
             {
-              path: PATH_APP.blog.blogView.name,
+              path: PATH_APP.article.articleView.name,
               element: <div>view blog</div>,
             },
 
@@ -34,11 +37,11 @@ const AppRouter: React.FC = () =>
                   element: <div>My articles</div>,
                 },
                 {
-                  path: PATH_APP.blog.addBlog,
-                  element: <div>add blog</div>,
+                  path: PATH_APP.article.addArticle,
+                  element: <CreateNewArticle />,
                 },
                 {
-                  path: PATH_APP.blog.editBlog.name,
+                  path: PATH_APP.article.editArticle.name,
                   element: <div>edit blog</div>,
                 },
               ],

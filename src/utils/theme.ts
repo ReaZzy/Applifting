@@ -7,7 +7,8 @@ export const defaultTheme: DefaultTheme = {
       white: '#ffffff',
     },
     primary: {
-      main: '#726a95',
+      main: '#f59e0b',
+      darken: '#d97706',
       contrastText: '#ffffff',
     },
     grey: {
@@ -16,8 +17,9 @@ export const defaultTheme: DefaultTheme = {
       main: '#6C757D',
     },
     secondary: {
-      main: '#709fb0',
-      contrastText: '#ffffff',
+      main: '#fde047',
+      darken: '#facc15',
+      contrastText: '#1f2937',
     },
     error: {
       light: '#fca5a5',
@@ -32,7 +34,7 @@ export const defaultTheme: DefaultTheme = {
     common: 8,
   },
   screen: {
-    phone: '860px',
+    phone: '690px',
     tablet: '1024px',
     desktop: '1440px',
   },

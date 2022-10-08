@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Outlet, To } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { PATH_APP } from '@src/router/paths';
 import { accessTokenSelector } from '@src/store/slices/auth.slice';
 import { useTypedSelector } from '@src/store/store.hooks';

@@ -45,10 +45,15 @@ const ItemsSection = styled.div`
     gap: ${({ theme }) => theme.spacing.common}px;
   }
 `;
-export const NavbarLink = styled(NavLink)<{ isActive?: string }>`
-  color: ${({ theme }) => theme.palette.typography.light};
+export const NavbarLink = styled(NavLink)<{
+  isActive?: string;
+  primary?: boolean;
+}>`
+  color: ${({ theme, primary }) =>
+    primary ? theme.palette.primary.main : theme.palette.typography.light};
   &.active {
-    color: ${({ theme }) => theme.palette.typography.main};
+    color: ${({ theme, primary }) =>
+      primary ? theme.palette.primary.darken : theme.palette.typography.main};
   }
 `;
 

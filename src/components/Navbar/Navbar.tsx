@@ -20,11 +20,12 @@ const Navbar: React.FC = React.memo(() => {
   const { height } = useResize(navbarRef);
 
   const getNavbarLink = useCallback(
-    (path: string, content: React.ReactElement | string) => {
+    (path: string, content: React.ReactElement | string, primary?: boolean) => {
       return (
         <NavbarLink
           className={({ isActive }) => (isActive ? 'active' : '')}
           to={path}
+          primary={primary}
           end
         >
           {content}
@@ -40,8 +41,8 @@ const Navbar: React.FC = React.memo(() => {
     }
     return (
       <>
-        {getNavbarLink(PATH_APP.blog.root, 'My Articles')}
-        {getNavbarLink(PATH_APP.blog.addBlog, 'Create Article')}
+        {getNavbarLink(PATH_APP.article.root, 'My Articles')}
+        {getNavbarLink(PATH_APP.article.addArticle, 'Create Article', true)}
         <UserMenu />
       </>
     );

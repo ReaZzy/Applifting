@@ -8,21 +8,20 @@ export const PATH_AUTH: PathsAuth = {
 
 export const PATH_ERROR_PAGE: PathsError = {
   page404: '/404',
-  page500: '/500',
 };
 
 export const PATH_APP: PathsApp = {
   root: ROUTER_ROOT_APP,
-  blog: {
-    root: '/blog',
-    blogView: {
-      name: '/blog/:blogId',
-      navigate: (blogId) => `/blog/${blogId}`,
+  article: {
+    root: '/article',
+    articleView: {
+      name: '/article/:articleId',
+      navigate: (articleId) => `/blog/${articleId}`,
     },
-    addBlog: '/blog/add',
-    editBlog: {
-      name: '/blog/:blogId/edit',
-      navigate: (blogId) => `/blog/${blogId}/edit`,
+    addArticle: '/article/add',
+    editArticle: {
+      name: '/article/:articleId/edit',
+      navigate: (articleId) => `/article/${articleId}/edit`,
     },
   },
   about: '/about',

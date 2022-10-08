@@ -2,6 +2,7 @@ import 'styled-components';
 
 interface Palette {
   main: string;
+  darken: string;
   contrastText: string;
 }
 
