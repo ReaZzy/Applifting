@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 export const ContentWrapper = styled.div`
   max-width: ${({ theme }) => theme.screen.tablet};
   width: 100%;
-  margin: 0 auto;
+  margin: ${({ theme }) => theme.spacing.common * 2}px auto;
   padding-left: ${({ theme }) => theme.spacing.common * 2}px;
   padding-right: ${({ theme }) => theme.spacing.common * 2}px;
 

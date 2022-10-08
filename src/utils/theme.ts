@@ -42,6 +42,10 @@ export const defaultTheme: DefaultTheme = {
     xl: '16px',
     xxl: '22px',
   },
+  shadow: {
+    common: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
+    darken: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+  },
 } as const;
 
 export const deviceMaxWidth = {

@@ -14,12 +14,16 @@ export const useResize: UseResize = (ref) => {
     height: undefined,
   });
 
-  const observer = new ResizeObserver(() => {
-    setSizes({
-      width: ref.current?.clientWidth,
-      height: ref.current?.clientHeight,
-    });
-  });
+  const observer = useMemo(
+    () =>
+      new ResizeObserver(() => {
+        setSizes({
+          width: ref.current?.clientWidth,
+          height: ref.current?.clientHeight,
+        });
+      }),
+    [ref],
+  );
 
   useEffect(() => {
     if (ref?.current) {

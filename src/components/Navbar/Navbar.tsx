@@ -22,7 +22,11 @@ const Navbar: React.FC = React.memo(() => {
   const getNavbarLink = useCallback(
     (path: string, content: React.ReactElement | string) => {
       return (
-        <NavbarLink activeClassName="active" to={path} end>
+        <NavbarLink
+          className={({ isActive }) => (isActive ? 'active' : '')}
+          to={path}
+          end
+        >
           {content}
         </NavbarLink>
       );

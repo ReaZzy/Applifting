@@ -4,12 +4,16 @@ import {
   SpinnerRing,
 } from '@src/components/Spinner/spinner.styles';
 
-const Spinner: React.FC = React.memo(() => {
+interface SpinnerProps {
+  smaller?: boolean;
+}
+
+const Spinner: React.FC<SpinnerProps> = React.memo(({ smaller }) => {
   return (
-    <SpinnerRing key="spinner-component">
-      <SpinnerItem />
-      <SpinnerItem />
-      <SpinnerItem />
+    <SpinnerRing smaller={smaller} key="spinner-component">
+      <SpinnerItem smaller={smaller} />
+      <SpinnerItem smaller={smaller} />
+      <SpinnerItem smaller={smaller} />
     </SpinnerRing>
   );
 });

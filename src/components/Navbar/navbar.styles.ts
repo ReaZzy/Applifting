@@ -45,9 +45,9 @@ const ItemsSection = styled.div`
     gap: ${({ theme }) => theme.spacing.common}px;
   }
 `;
-export const NavbarLink = styled(NavLink)<{ activeClassName?: string }>`
+export const NavbarLink = styled(NavLink)<{ isActive?: string }>`
   color: ${({ theme }) => theme.palette.typography.light};
-  &.${({ activeClassName }) => activeClassName} {
+  &.active {
     color: ${({ theme }) => theme.palette.typography.main};
   }
 `;

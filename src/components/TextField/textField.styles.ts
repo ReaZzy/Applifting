@@ -31,6 +31,5 @@ export const InputLabel = styled.p<{ hasError?: boolean }>`
 
 export const ErrorMessageText = styled.span`
   font-size: ${({ theme }) => theme.typography.sm};
-  font-weight: bold;
   color: ${({ theme }) => theme.palette.error.main};
 `;

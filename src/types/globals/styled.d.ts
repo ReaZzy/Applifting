@@ -42,5 +42,9 @@ declare module 'styled-components' {
       xl: string;
       xxl: string;
     };
+    shadow: {
+      common: string;
+      darken: string;
+    };
   }
 }

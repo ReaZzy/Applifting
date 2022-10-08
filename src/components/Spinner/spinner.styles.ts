@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 
-export const SpinnerItem = styled.div`
-  box-sizing: border-box;
-  display: block;
+export const SpinnerItem = styled.div<{ smaller?: boolean }>`
+  width: ${({ smaller }) => (smaller ? '12px' : '64px')};
+  height: ${({ smaller }) => (smaller ? '12px' : '64px')};
   position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 8px solid;
+  border: 2px solid;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: ${({ theme }) => theme.palette.common.white} transparent
@@ -23,12 +20,10 @@ export const SpinnerItem = styled.div`
   }
 `;
 
-export const SpinnerRing = styled.div`
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-
+export const SpinnerRing = styled.div<{ smaller?: boolean }>`
+  height: ${({ smaller }) => (smaller ? '12px' : '64px')};
+  width: ${({ smaller }) => (smaller ? '12px' : '64px')};
+  position: absolute;
   ${SpinnerItem} {
     &:nth-child(1) {
       animation-delay: -0.45s;

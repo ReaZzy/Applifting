@@ -13,7 +13,7 @@ export const DropdownMenuList = styled.ul`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.palette.common.white};
-  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+  box-shadow: ${({ theme }) => theme.shadow.common};
   border-radius: 8px;
   justify-self: flex-end;
   right: 0;

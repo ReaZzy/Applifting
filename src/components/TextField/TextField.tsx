@@ -12,7 +12,7 @@ export type InputProps = {
 const TextField = React.forwardRef<HTMLInputElement, InputProps>(
   ({ name, label, placeholder, hasError, type = 'text', ...rest }, ref) => {
     return (
-      <>
+      <div>
         {label && <InputLabel hasError={hasError}>{label}</InputLabel>}
         <Input
           key={`input-${name}`}
@@ -24,7 +24,7 @@ const TextField = React.forwardRef<HTMLInputElement, InputProps>(
           hasError={hasError}
           {...rest}
         />
-      </>
+      </div>
     );
   },
 );

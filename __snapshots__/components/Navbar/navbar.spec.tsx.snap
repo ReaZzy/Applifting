@@ -9,11 +9,11 @@ exports[`<Navbar /> snapshot 1`] = `
       class="sc-gswNZR gnyjtI"
     >
       <div
-        class="sc-dkrFOg sc-hLBbgP cdytEU"
+        class="sc-dkrFOg sc-eDvSVe cdytEU"
       >
         <a
           aria-current="page"
-          class="active"
+          class="sc-hLBbgP jRuRZg ({ isActive }) => (isActive ? 'active' : '') active"
           href="/"
         >
           <logo.svg
@@ -23,22 +23,23 @@ exports[`<Navbar /> snapshot 1`] = `
         </a>
         <a
           aria-current="page"
-          class="active"
+          class="sc-hLBbgP jRuRZg ({ isActive }) => (isActive ? 'active' : '') active"
           href="/"
         >
           Recent Articles
         </a>
         <a
-          class=""
+          class="sc-hLBbgP jRuRZg ({ isActive }) => (isActive ? 'active' : '')"
           href="/about"
         >
           About
         </a>
       </div>
       <div
-        class="sc-dkrFOg sc-eDvSVe cdytEU eHkolv"
+        class="sc-dkrFOg sc-jSUZER cdytEU bSnNRB"
       >
         <a
+          class="sc-hLBbgP jRuRZg ({ isActive }) => (isActive ? 'active' : '')"
           href="/login"
         >
           Log in
@@ -47,7 +48,7 @@ exports[`<Navbar /> snapshot 1`] = `
     </div>
   </nav>
   <div
-    class="sc-jSUZER cJxtRK"
+    class="sc-gKPRtg cTckiS"
   />
 </DocumentFragment>
 `;
