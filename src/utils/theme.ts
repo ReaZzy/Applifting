@@ -11,12 +11,21 @@ export const defaultTheme: DefaultTheme = {
       contrastText: '#ffffff',
     },
     grey: {
-      light: '#F8F9FA',
-      main: '#aeaeb2',
+      thin: '#F8F9FA',
+      light: '#DFDFDF',
+      main: '#6C757D',
     },
     secondary: {
       main: '#709fb0',
       contrastText: '#ffffff',
+    },
+    error: {
+      light: '#fca5a5',
+      main: '#ef4444',
+    },
+    typography: {
+      light: '#6b7280',
+      main: '#111827',
     },
   },
   spacing: {
@@ -26,6 +35,12 @@ export const defaultTheme: DefaultTheme = {
     phone: '860px',
     tablet: '1024px',
     desktop: '1440px',
+  },
+  typography: {
+    sm: '12px',
+    md: '14px',
+    xl: '16px',
+    xxl: '22px',
   },
 } as const;
 

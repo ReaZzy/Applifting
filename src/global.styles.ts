@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
+  *{
+    box-sizing: border-box;
+  }
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -20,7 +23,7 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
   }
 
   /* HTML5 display-role reset for older browsers */
@@ -50,5 +53,9 @@ export const GlobalStyles = createGlobalStyle`
   table {
     border-collapse: collapse;
     border-spacing: 0;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 `;

@@ -13,8 +13,8 @@ const GuestGuard: React.FC<GoBackFromAuthGuardProps> = ({ children }) => {
 
   if (accessToken) {
     if (window.history.length > 0) {
-      // react-router-dom v6 types problem
-      return <Navigate to={-1 as To} replace />;
+      // @ts-expect-error react-router-dom v6 types problem
+      return <Navigate to={-1} replace />;
     }
     return <Navigate to={PATH_APP.root} replace />;
   }

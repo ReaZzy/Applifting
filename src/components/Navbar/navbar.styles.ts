@@ -1,9 +1,10 @@
+import { NavLink } from 'react-router-dom';
 import { deviceMaxWidth, deviceMinWidth } from '@src/utils/theme';
 import styled from 'styled-components';
 
 export const NavbarWrapper = styled.nav`
   width: 100%;
-  background-color: ${({ theme }) => theme.palette.grey.light};
+  background-color: ${({ theme }) => theme.palette.grey.thin};
   padding: ${({ theme }) => theme.spacing.common}px 0;
   position: fixed;
   height: max-content;
@@ -42,6 +43,12 @@ const ItemsSection = styled.div`
   @media ${deviceMaxWidth.phone} {
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing.common}px;
+  }
+`;
+export const NavbarLink = styled(NavLink)<{ activeClassName?: string }>`
+  color: ${({ theme }) => theme.palette.typography.light};
+  &.${({ activeClassName }) => activeClassName} {
+    color: ${({ theme }) => theme.palette.typography.main};
   }
 `;
 

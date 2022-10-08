@@ -2,6 +2,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLoginMutation } from '@src/api/auth.api';
+import RHFTextField from '@src/components/TextField/RHFTextField';
 import { setAccessToken } from '@src/store/slices/auth.slice';
 import { useTypedDispatch } from '@src/store/store.hooks';
 import {
@@ -32,13 +33,20 @@ const LoginForm: React.FC = React.memo(() => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input defaultValue="reazzy" {...register('username')} />
-      {errors.username && <span>{errors.username.message}</span>}
-      <input defaultValue="forAppliftingWithLove" {...register('password')} />
-
-      {errors.password && <span>{errors.password.message}</span>}
-      <input type="submit" />
-      {error?.message && error.message}
+      <RHFTextField<AuthApiLoginQuery>
+        name="username"
+        label="username"
+        errors={errors}
+        register={register}
+      />
+      <RHFTextField<AuthApiLoginQuery>
+        name="password"
+        label="password"
+        type="password"
+        errors={errors}
+        register={register}
+      />
+      <button type="submit">Submit</button>
     </form>
   );
 });

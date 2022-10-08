@@ -13,11 +13,20 @@ declare module 'styled-components' {
         white: string;
       };
       grey: {
+        thin: string;
         light: string;
         main: string;
       };
       primary: Palette;
       secondary: Palette;
+      error: {
+        light: string;
+        main: string;
+      };
+      typography: {
+        light: string;
+        main: string;
+      };
     };
     spacing: {
       common: number;
@@ -26,6 +35,12 @@ declare module 'styled-components' {
       phone: string;
       tablet: string;
       desktop: string;
+    };
+    typography: {
+      sm: string;
+      md: string;
+      xl: string;
+      xxl: string;
     };
   }
 }

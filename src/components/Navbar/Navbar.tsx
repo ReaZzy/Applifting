@@ -1,15 +1,9 @@
-import React, {
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useCallback, useMemo, useRef } from 'react';
 import Logo from '@public/static/icons/logo.svg';
 import {
   NavbarItems,
   NavbarLeftItems,
+  NavbarLink,
   NavbarMargin,
   NavbarRightItems,
   NavbarWrapper,
@@ -25,29 +19,38 @@ const Navbar: React.FC = React.memo(() => {
   const accessToken = useTypedSelector(accessTokenSelector);
   const { height } = useResize(navbarRef);
 
+  const getNavbarLink = useCallback(
+    (path: string, content: React.ReactElement | string) => {
+      return (
+        <NavbarLink activeClassName="active" to={path} end>
+          {content}
+        </NavbarLink>
+      );
+    },
+    [],
+  );
+
   const getUserOrLoginMenu = useMemo(() => {
     if (!accessToken) {
-      return <Link to={PATH_AUTH.login}>Log in</Link>;
+      return getNavbarLink(PATH_AUTH.login, 'Log in');
     }
     return (
       <>
-        <NavLink to={PATH_APP.blog.root}>My Articles</NavLink>
-        <NavLink to={PATH_APP.blog.addBlog}>Create Article</NavLink>
+        {getNavbarLink(PATH_APP.blog.root, 'My Articles')}
+        {getNavbarLink(PATH_APP.blog.addBlog, 'Create Article')}
         <UserMenu />
       </>
     );
-  }, [accessToken]);
+  }, [accessToken, getNavbarLink]);
 
   return (
     <>
       <NavbarWrapper ref={navbarRef}>
         <NavbarItems>
           <NavbarLeftItems>
-            <NavLink to={PATH_APP.root}>
-              <Logo width="32px" height="32px" />
-            </NavLink>
-            <NavLink to={PATH_APP.root}>Recent Articles</NavLink>
-            <NavLink to={PATH_APP.about}>About</NavLink>
+            {getNavbarLink(PATH_APP.root, <Logo width="32px" height="32px" />)}
+            {getNavbarLink(PATH_APP.root, 'Recent Articles')}
+            {getNavbarLink(PATH_APP.about, 'About')}
           </NavbarLeftItems>
           <NavbarRightItems>{getUserOrLoginMenu}</NavbarRightItems>
         </NavbarItems>

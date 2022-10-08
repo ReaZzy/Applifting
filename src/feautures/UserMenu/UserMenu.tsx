@@ -1,9 +1,7 @@
 import React, { useMemo } from 'react';
-import { NavLink } from 'react-router-dom';
 import Dropdown, {
   DropdownActionType,
 } from '@src/components/Dropdown/Dropdown';
-import { PATH_APP } from '@src/router/paths';
 import {
   accessTokenSelector,
   setAccessToken,
