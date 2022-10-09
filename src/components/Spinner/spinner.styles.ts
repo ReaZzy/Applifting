@@ -7,7 +7,7 @@ export const SpinnerItem = styled.div<{ smaller?: boolean }>`
   border: 2px solid;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: ${({ theme }) => theme.palette.common.white} transparent
+  border-color: ${({ theme }) => theme.palette.primary.main} transparent
     transparent transparent;
 
   @keyframes lds-ring {

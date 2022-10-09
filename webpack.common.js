@@ -1,7 +1,7 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const webpack = require('webpack')
 
 const aliases = {
   '@src': path.resolve(__dirname, 'src'),
@@ -64,6 +64,7 @@ const commonConfig =  {
     publicPath: '/',
     clean: true,
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'index.html'),

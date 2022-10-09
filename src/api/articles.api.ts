@@ -29,7 +29,7 @@ export const useArticleMoreInfoQuery = (articleId: string) =>
   useQuery<AxiosResponse<ArticleFull>, AxiosError>(
     getArticleMoreInfoQueryKey(articleId),
     () => {
-      return appAxios.get<ArticleFull>(`/article/${articleId}`);
+      return appAxios.get<ArticleFull>(`/articles/${articleId}`);
     },
   );
 
@@ -40,6 +40,24 @@ export const createArticleRequest = async ({
   title,
 }: Omit<CreateNewArticleQuery, 'image'> & { imageId?: string }) => {
   return appAxios.post<ArticleFull>('/articles', {
+    perex,
+    content,
+    imageId,
+    title,
+  });
+};
+
+export const patchArticleRequest = async ({
+  perex,
+  content,
+  imageId,
+  title,
+  articleId,
+}: Omit<CreateNewArticleQuery, 'image'> & {
+  imageId?: string;
+  articleId: string;
+}) => {
+  return appAxios.patch<ArticleFull>(`/articles/${articleId}`, {
     perex,
     content,
     imageId,

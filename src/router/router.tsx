@@ -11,6 +11,9 @@ const Login = withSuspense(React.lazy(() => import('@src/pages/Login/Login')));
 const CreateNewArticle = withSuspense(
   React.lazy(() => import('@src/pages/CreateNewArticle/CreateNewArticle')),
 );
+const EditArticle = withSuspense(
+  React.lazy(() => import('@src/pages/EditArticle/EditArticle')),
+);
 
 const AppRouter: React.FC = () =>
   useRoutes([
@@ -42,7 +45,7 @@ const AppRouter: React.FC = () =>
                 },
                 {
                   path: PATH_APP.article.editArticle,
-                  element: <div>edit blog</div>,
+                  element: <EditArticle />,
                 },
               ],
             },

@@ -34,22 +34,24 @@ const RHFFileInput = <T extends Record<string, unknown>>({
       control={control}
       name={name}
       render={({ field: { value, onChange }, formState: { errors } }) => {
-        const isFile = value && value instanceof File;
+        const isFile = value instanceof File;
+        const isBlob = value instanceof Blob;
+        const isExisting = isFile || isBlob;
         const hasError = !!errors?.[name];
         return (
           <div>
             {label && <InputLabel hasError={hasError}>{label}</InputLabel>}
             <Flex gap={`${theme.spacing.common}px`} flexDirection="column">
-              {isFile && (
+              {isExisting && (
                 <Image
-                  alt={value.name}
+                  alt={isFile ? value.name : 'image'}
                   width="100px"
                   height="75px"
                   src={URL.createObjectURL(value)}
                 />
               )}
               <Flex gap={`${theme.spacing.common}px`}>
-                <FileInputLabel primary={isFile}>
+                <FileInputLabel primary={isExisting}>
                   <HiddenInput
                     id={name}
                     type="file"
@@ -57,9 +59,9 @@ const RHFFileInput = <T extends Record<string, unknown>>({
                     {...rest}
                     onChange={(e) => onChange(e.target?.files?.[0])}
                   />
-                  {isFile ? 'Upload new' : 'Upload file'}
+                  {isExisting ? 'Upload new' : 'Upload file'}
                 </FileInputLabel>
-                {isFile && typeof resetField === 'function' && (
+                {isExisting && typeof resetField === 'function' && (
                   <Button primary={false} onClick={handleDeleteImage}>
                     Delete
                   </Button>
