@@ -36,13 +36,13 @@ export const useArticleMoreInfoQuery = (articleId: string) =>
 export const createArticleRequest = async ({
   perex,
   content,
-  image,
+  imageId,
   title,
-}: CreateNewArticleQuery) => {
+}: Omit<CreateNewArticleQuery, 'image'> & { imageId?: string }) => {
   return appAxios.post<ArticleFull>('/articles', {
     perex: perex,
     content,
-    imageId: image,
+    imageId,
     title,
   });
 };

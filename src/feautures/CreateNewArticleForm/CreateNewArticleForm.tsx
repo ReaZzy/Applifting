@@ -46,7 +46,7 @@ const CreateNewArticleForm: React.FC = React.memo(() => {
         perex,
         content,
         title,
-        image: imageRes?.data[0]?.imageId,
+        imageId: imageRes?.data[0]?.imageId,
       });
       navigate(
         generatePath(PATH_APP.article.editArticle, {
