@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { deviceMaxWidth, deviceMinWidth } from '@src/utils/theme';
 import styled from 'styled-components';
+import { boolean, string } from 'zod';
 
 export const NavbarWrapper = styled.nav`
   width: 100%;
@@ -48,15 +49,16 @@ const ItemsSection = styled.div`
 `;
 export const NavbarLink = styled(NavLink)<{
   isActive?: string;
-  primaryLink?: boolean;
 }>`
-  color: ${({ theme, primaryLink }) =>
-    primaryLink ? theme.palette.primary.main : theme.palette.typography.light};
+  color: ${({ theme }) => theme.palette.typography.light};
+  &.primary {
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
   &.active {
-    color: ${({ theme, primaryLink }) =>
-      primaryLink
-        ? theme.palette.primary.darken
-        : theme.palette.typography.main};
+    color: ${({ theme }) => theme.palette.typography.main};
+  }
+  &.active.primary {
+    color: ${({ theme }) => theme.palette.primary.darken};
   }
 `;
 

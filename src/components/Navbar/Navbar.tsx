@@ -26,14 +26,11 @@ const Navbar: React.FC = React.memo(() => {
       primaryLink?: boolean,
     ) => {
       return (
-        <NavbarLink
-          className={({ isActive }) => (isActive ? 'active' : '')}
-          to={path}
-          primaryLink={primaryLink}
-          end
-        >
-          {content}
-        </NavbarLink>
+        <span>
+          <NavbarLink className={primaryLink ? 'primary' : ''} to={path} end>
+            {content}
+          </NavbarLink>
+        </span>
       );
     },
     [],
