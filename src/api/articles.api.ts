@@ -1,4 +1,5 @@
-import { useQuery } from 'react-query';
+import { QueryOptions, useQuery } from 'react-query';
+import { UseQueryOptions } from 'react-query/types/react/types';
 import {
   Article,
   ArticleFull,
@@ -25,12 +26,16 @@ export const getArticleMoreInfoQueryKey = (articleId: string) => [
   articleId,
 ];
 
-export const useArticleMoreInfoQuery = (articleId: string) =>
+export const useArticleMoreInfoQuery = (
+  articleId: string,
+  options?: UseQueryOptions<AxiosResponse<ArticleFull>, AxiosError>,
+) =>
   useQuery<AxiosResponse<ArticleFull>, AxiosError>(
     getArticleMoreInfoQueryKey(articleId),
     () => {
       return appAxios.get<ArticleFull>(`/articles/${articleId}`);
     },
+    options,
   );
 
 export const createArticleRequest = async ({

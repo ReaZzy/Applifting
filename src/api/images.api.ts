@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { UseQueryOptions } from 'react-query/types/react/types';
-import { ImagesAPI, ImagesAPIResponse } from '@src/types/images.api.types';
+import { ImagesAPIResponse } from '@src/types/images.api.types';
 import { appAxios } from '@src/utils/axios';
 import { AxiosError, AxiosResponse } from 'axios';
 
@@ -16,6 +16,9 @@ export const getImage = (imageId: string) =>
   appAxios.get<Blob>(`/images/${imageId}`, {
     responseType: 'blob',
   });
+
+export const deleteImage = (imageId: string) =>
+  appAxios.delete<void>(`/images/${imageId}`);
 
 export const useImageQuery = (
   imageId: string,

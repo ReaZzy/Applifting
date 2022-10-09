@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { generatePath, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   patchArticleRequest,
   useArticleMoreInfoQuery,
 } from '@src/api/articles.api';
-import { createImageRequest, getImage } from '@src/api/images.api';
+import { createImageRequest, deleteImage, getImage } from '@src/api/images.api';
 import Button from '@src/components/Button/Button';
 import RHFFileInput from '@src/components/FileInput/RHFFileInput';
 import RHFMarkdownEditor from '@src/components/MarkdownEditor/RHFMarkdownEditor';
@@ -14,7 +14,6 @@ import Spinner from '@src/components/Spinner/Spinner';
 import { Flex, Title } from '@src/components/styled';
 import RHFTextField from '@src/components/TextField/RHFTextField';
 import { CreateNewArticleFormWrapper } from '@src/feautures/CreateNewArticleForm/createNewArticleForm.styles';
-import { PATH_APP } from '@src/router/paths';
 import {
   CreateNewArticleQuery,
   createNewArticleValidationSchema,
@@ -25,9 +24,10 @@ const EditArticleForm: React.FC = React.memo(() => {
   const { articleId } = useParams<{ articleId: string }>() as {
     articleId: string;
   };
-  const { isLoading, data } = useArticleMoreInfoQuery(articleId);
+  const { isLoading, data } = useArticleMoreInfoQuery(articleId, {
+    staleTime: Infinity,
+  });
 
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -35,7 +35,7 @@ const EditArticleForm: React.FC = React.memo(() => {
     reset,
     setError,
     control,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<CreateNewArticleQuery>({
     resolver: zodResolver(createNewArticleValidationSchema),
     criteriaMode: 'all',
@@ -70,18 +70,23 @@ const EditArticleForm: React.FC = React.memo(() => {
       if (image instanceof File) {
         imageRes = await createImageRequest(image);
       }
-      const articleResponse = await patchArticleRequest({
+
+      await patchArticleRequest({
         perex,
         content,
         title,
         imageId: imageRes?.data[0]?.imageId,
         articleId,
       });
-      navigate(
-        generatePath(PATH_APP.article.editArticle, {
-          articleId: articleResponse.data?.articleId,
-        }),
-      );
+      if (data?.data?.imageId && (imageRes?.data[0]?.imageId || !image)) {
+        await deleteImage(data.data.imageId);
+      }
+      reset({
+        image,
+        perex,
+        title,
+        content,
+      });
     } catch (err) {
       resetField('title');
 
@@ -97,12 +102,13 @@ const EditArticleForm: React.FC = React.memo(() => {
       }
     }
   };
+
   if (isLoading) return <Spinner />;
   return (
     <CreateNewArticleFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Flex gap="32px" alignItems="center">
         <Title>Edit article</Title>
-        <Button type="submit" isLoading={isSubmitting}>
+        <Button type="submit" isLoading={isSubmitting} disabled={!isDirty}>
           Publish article
         </Button>
       </Flex>

@@ -18,16 +18,15 @@ export const createNewArticleValidationSchema = z.object({
     .max(64),
   image: z
     .any()
-
+    .optional()
     .refine(
-      (file: File) => file && file?.size <= MAX_FILE_SIZE,
+      (file: File) => !file || file?.size <= MAX_FILE_SIZE,
       `Max image size is 5MB.`,
     )
     .refine(
-      (file: File) => file && ACCEPTED_IMAGE_TYPES.includes(file?.type),
+      (file: File) => !file || ACCEPTED_IMAGE_TYPES.includes(file?.type),
       'Only .jpg, .jpeg, .png and .webp formats are supported.',
-    )
-    .optional(),
+    ),
   title: z
     .string({
       invalid_type_error: 'Title must be a string',

@@ -27,7 +27,8 @@ const RHFFileInput = <T extends Record<string, unknown>>({
 }: FileInputProps<T>): React.ReactElement => {
   const theme = useTheme();
   const handleDeleteImage = () => {
-    if (typeof resetField === 'function') resetField(name);
+    if (typeof resetField === 'function')
+      resetField(name, { defaultValue: null, keepDirty: true });
   };
   return (
     <Controller
@@ -62,7 +63,11 @@ const RHFFileInput = <T extends Record<string, unknown>>({
                   {isExisting ? 'Upload new' : 'Upload file'}
                 </FileInputLabel>
                 {isExisting && typeof resetField === 'function' && (
-                  <Button primary={false} onClick={handleDeleteImage}>
+                  <Button
+                    type="button"
+                    primary={false}
+                    onClick={handleDeleteImage}
+                  >
                     Delete
                   </Button>
                 )}
