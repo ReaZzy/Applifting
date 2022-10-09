@@ -8,7 +8,8 @@ import {
 } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import TextField, { InputProps } from '@src/components/TextField/TextField';
-import { ErrorMessageText } from '@src/components/TextField/textField.styles';
+
+import { ErrorMessageText } from '../styled';
 
 type RHFTextFieldProps<TFormValues extends Record<string, unknown>> = {
   name: Path<TFormValues>;
@@ -17,7 +18,7 @@ type RHFTextFieldProps<TFormValues extends Record<string, unknown>> = {
   errors?: Partial<DeepMap<TFormValues, FieldError>>;
 } & InputProps;
 
-export const RHFTextField = <T extends Record<string, unknown>>({
+const RHFTextField = <T extends Record<string, unknown>>({
   errors,
   name,
   register,

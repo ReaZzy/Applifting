@@ -25,7 +25,7 @@ const AppRouter: React.FC = () =>
           path: PATH_APP.article.root,
           children: [
             {
-              path: PATH_APP.article.articleView.name,
+              path: PATH_APP.article.articleView,
               element: <div>view blog</div>,
             },
 
@@ -41,7 +41,7 @@ const AppRouter: React.FC = () =>
                   element: <CreateNewArticle />,
                 },
                 {
-                  path: PATH_APP.article.editArticle.name,
+                  path: PATH_APP.article.editArticle,
                   element: <div>edit blog</div>,
                 },
               ],

@@ -1,15 +1,6 @@
-type FunctionReturnString<T extends Array<unknown> = Array<any>> = (
-  ...args: T
-) => string;
-
-interface DirtyRoute<T extends Array<unknown> = Array<any>> {
-  name: string;
-  navigate: FunctionReturnString<T>;
-}
-
 export type RoutePath = Record<
   string,
-  string | DirtyRoute | { [key: string]: RoutePath | string | DirtyRoute }
+  string | { [key: string]: RoutePath | string }
 >;
 
 export interface PathsAuth extends RoutePath {
@@ -24,9 +15,9 @@ export interface PathsApp extends RoutePath {
   root: string;
   article: {
     root: string;
-    articleView: DirtyRoute<[number]>;
+    articleView: string;
     addArticle: string;
-    editArticle: DirtyRoute<[number]>;
+    editArticle: string;
   };
   about: string;
 }

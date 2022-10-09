@@ -25,8 +25,36 @@ export const Flex = styled.div<{
   alignItems?: string;
 }>`
   display: flex;
+  width: 100%;
   flex-direction: ${({ flexDirection }) => flexDirection ?? 'row'};
   gap: ${({ gap }) => gap ?? '0'};
   justify-content: ${({ justifyContent }) => justifyContent ?? 'flex-start'};
   align-items: ${({ alignItems }) => alignItems ?? 'start'};
+`;
+
+export const Image = styled.img<{
+  objectFit?: string;
+  width?: string;
+  height?: string;
+}>`
+  object-fit: ${({ objectFit }) => objectFit ?? 'cover'};
+  width: ${({ width }) => width ?? '100%'};
+  height: ${({ height }) => height ?? '100%'};
+`;
+
+export const InputLabel = styled.p<{ hasError?: boolean }>`
+  text-transform: capitalize;
+  margin-bottom: ${({ theme }) => theme.spacing.common}px;
+  font-size: ${({ theme }) => theme.typography.md};
+  color: ${({ theme }) => theme.palette.typography.main};
+  ${({ hasError }) =>
+    hasError &&
+    css`
+      color: ${({ theme }) => theme.palette.error.main};
+    `}
+`;
+
+export const ErrorMessageText = styled.span`
+  font-size: ${({ theme }) => theme.typography.sm};
+  color: ${({ theme }) => theme.palette.error.main};
 `;

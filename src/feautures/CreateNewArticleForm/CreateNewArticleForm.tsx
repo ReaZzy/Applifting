@@ -1,27 +1,30 @@
 import React from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { generatePath, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { createArticleRequest } from '@src/api/articles.api';
+import { createImageRequest } from '@src/api/images.api';
 import Button from '@src/components/Button/Button';
+import RHFFileInput from '@src/components/FileInput/RHFFileInput';
+import RHFMarkdownEditor from '@src/components/MarkdownEditor/RHFMarkdownEditor';
 import { Flex, Title } from '@src/components/styled';
 import RHFTextField from '@src/components/TextField/RHFTextField';
 import { CreateNewArticleFormWrapper } from '@src/feautures/CreateNewArticleForm/createNewArticleForm.styles';
+import { PATH_APP } from '@src/router/paths';
 import {
   CreateNewArticleQuery,
   createNewArticleValidationSchema,
 } from '@src/types/articles.api.types';
-import { ImagesAPIResponse } from '@src/types/images.api.types';
-import { appAxios } from '@src/utils/axios';
-import MarkdownEditor from '@uiw/react-markdown-editor';
 import axios from 'axios';
 
 const CreateNewArticleForm: React.FC = React.memo(() => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     resetField,
     setError,
     control,
-    watch,
     formState: { errors, isSubmitting },
   } = useForm<CreateNewArticleQuery>({
     resolver: zodResolver(createNewArticleValidationSchema),
@@ -35,15 +38,21 @@ const CreateNewArticleForm: React.FC = React.memo(() => {
     image,
   }) => {
     try {
-      const formData = new FormData();
-      formData.append('image', image[0]);
-      const res = await appAxios.post<ImagesAPIResponse>('/images', formData);
-      await appAxios.post<CreateNewArticleQuery>('/articles', {
+      let imageRes;
+      if (image instanceof File) {
+        imageRes = await createImageRequest(image);
+      }
+      const articleResponse = await createArticleRequest({
         perex,
         content,
         title,
-        imageId: res.data[0]?.imageId,
+        image: imageRes?.data[0]?.imageId,
       });
+      navigate(
+        generatePath(PATH_APP.article.editArticle, {
+          articleId: articleResponse.data?.articleId,
+        }),
+      );
     } catch (err) {
       resetField('title');
 
@@ -60,9 +69,6 @@ const CreateNewArticleForm: React.FC = React.memo(() => {
     }
   };
 
-  const handleDeleteImage = () => {
-    resetField('image');
-  };
   return (
     <CreateNewArticleFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Flex gap="32px" alignItems="center">
@@ -79,11 +85,13 @@ const CreateNewArticleForm: React.FC = React.memo(() => {
         errors={errors}
         register={register}
       />
-      <input type="file" {...register('image')} />
-      {watch('image') && <img src={URL.createObjectURL(watch('image')[0])} />}
-      <Button primary={false} onClick={handleDeleteImage}>
-        delete image
-      </Button>
+      <RHFFileInput<CreateNewArticleQuery>
+        name="image"
+        label="Featured image"
+        resetField={resetField}
+        control={control}
+      />
+
       <RHFTextField<CreateNewArticleQuery>
         name="perex"
         label="Article Perex"
@@ -91,12 +99,10 @@ const CreateNewArticleForm: React.FC = React.memo(() => {
         errors={errors}
         register={register}
       />
-      <Controller
+      <RHFMarkdownEditor<CreateNewArticleQuery>
         name="content"
+        label="Content"
         control={control}
-        render={({ field: { value, onChange } }) => (
-          <MarkdownEditor value={value} onChange={onChange} />
-        )}
       />
     </CreateNewArticleFormWrapper>
   );

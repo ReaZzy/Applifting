@@ -1,5 +1,7 @@
 import React, { InputHTMLAttributes } from 'react';
-import { Input, InputLabel } from '@src/components/TextField/textField.styles';
+import { Input } from '@src/components/TextField/textField.styles';
+
+import { InputLabel } from '../styled';
 
 export type InputProps = {
   name: string;

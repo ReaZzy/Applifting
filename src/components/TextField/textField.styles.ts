@@ -16,20 +16,3 @@ export const Input = styled.input<{ hasError?: boolean }>`
       color: ${({ theme }) => theme.palette.error.main};
     `};
 `;
-
-export const InputLabel = styled.p<{ hasError?: boolean }>`
-  text-transform: capitalize;
-  margin-bottom: ${({ theme }) => theme.spacing.common}px;
-  font-size: ${({ theme }) => theme.typography.md};
-  color: ${({ theme }) => theme.palette.typography.main};
-  ${({ hasError }) =>
-    hasError &&
-    css`
-      color: ${({ theme }) => theme.palette.error.main};
-    `}
-`;
-
-export const ErrorMessageText = styled.span`
-  font-size: ${({ theme }) => theme.typography.sm};
-  color: ${({ theme }) => theme.palette.error.main};
-`;
