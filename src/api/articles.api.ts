@@ -40,7 +40,7 @@ export const createArticleRequest = async ({
   title,
 }: Omit<CreateNewArticleQuery, 'image'> & { imageId?: string }) => {
   return appAxios.post<ArticleFull>('/articles', {
-    perex: perex,
+    perex,
     content,
     imageId,
     title,
