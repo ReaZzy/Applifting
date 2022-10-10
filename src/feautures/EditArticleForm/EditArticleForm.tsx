@@ -35,7 +35,7 @@ const EditArticleForm: React.FC = React.memo(() => {
     reset,
     setError,
     control,
-    formState: { errors, isSubmitting, isDirty, dirtyFields },
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<CreateNewArticleQuery>({
     resolver: zodResolver(createNewArticleValidationSchema),
     criteriaMode: 'all',
