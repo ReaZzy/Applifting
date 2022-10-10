@@ -84,8 +84,9 @@ const EditArticleForm: React.FC = React.memo(() => {
         toastId: `article-updated-${articleId}`,
       });
       if (
-        data?.data?.imageId &&
-        articleRes?.data?.imageId !== data?.data?.imageId
+        (data?.data?.imageId &&
+          articleRes?.data?.imageId !== data?.data?.imageId) ||
+        !image
       ) {
         await deleteImage(data.data.imageId);
       }
