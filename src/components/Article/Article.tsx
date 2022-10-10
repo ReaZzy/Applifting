@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath } from 'react-router-dom';
 import {
   ArticleContentWrapper,
   ArticleImageWrapper,

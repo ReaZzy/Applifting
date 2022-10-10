@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { deviceMaxWidth, deviceMinWidth } from '@src/utils/theme';
 import styled from 'styled-components';
-import { boolean, string } from 'zod';
 
 export const NavbarWrapper = styled.nav`
   width: 100%;

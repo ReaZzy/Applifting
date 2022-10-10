@@ -5,8 +5,6 @@ import { InputLabel } from '../styled';
 
 export type InputProps = {
   name: string;
-  type?: string;
-  placeholder?: string;
   hasError?: boolean;
   label?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
