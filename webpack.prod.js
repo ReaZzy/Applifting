@@ -2,6 +2,8 @@ const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.common').commonConfig;
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin
+const CopyPlugin = require("copy-webpack-plugin");
+const path = require('path');
 
 const productionConfig = merge(commonConfig, {
   mode: 'production',
@@ -18,6 +20,12 @@ const productionConfig = merge(commonConfig, {
   },
   plugins: [
     new BundleAnalyzerPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { from: path.resolve('public', 'favicon'), to: 'favicon' },
+        { from: path.resolve('public', 'site.webmanifest') },
+      ]
+    })
   ]
 });
 
