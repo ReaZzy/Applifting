@@ -35,7 +35,7 @@ const EditArticleForm: React.FC = React.memo(() => {
     reset,
     setError,
     control,
-    formState: { errors, isSubmitting, isDirty },
+    formState: { errors, isSubmitting, isDirty, dirtyFields },
   } = useForm<CreateNewArticleQuery>({
     resolver: zodResolver(createNewArticleValidationSchema),
     criteriaMode: 'all',
@@ -71,14 +71,17 @@ const EditArticleForm: React.FC = React.memo(() => {
         imageRes = await createImageRequest(image);
       }
 
-      await patchArticleRequest({
+      const articleRes = await patchArticleRequest({
         perex,
         content,
         title,
         imageId: imageRes?.data[0]?.imageId,
         articleId,
       });
-      if (data?.data?.imageId && (imageRes?.data[0]?.imageId || !image)) {
+      if (
+        data?.data?.imageId &&
+        articleRes?.data?.imageId !== data?.data?.imageId
+      ) {
         await deleteImage(data.data.imageId);
       }
       reset({

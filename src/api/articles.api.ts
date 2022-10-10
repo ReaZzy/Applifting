@@ -1,5 +1,7 @@
-import { QueryOptions, useQuery } from 'react-query';
+import { QueryOptions, useQuery, useQueryClient } from 'react-query';
 import { UseQueryOptions } from 'react-query/types/react/types';
+import { queryClient } from '@src/api/queryClient';
+import { useQueryInvalidation } from '@src/hooks/useQueryInvalidation';
 import {
   Article,
   ArticleFull,
@@ -62,10 +64,20 @@ export const patchArticleRequest = async ({
   imageId?: string;
   articleId: string;
 }) => {
-  return appAxios.patch<ArticleFull>(`/articles/${articleId}`, {
-    perex,
-    content,
-    imageId,
-    title,
-  });
+  try {
+    const res = await appAxios.patch<ArticleFull>(`/articles/${articleId}`, {
+      perex,
+      content,
+      imageId,
+      title,
+    });
+    if (res?.status.toString().startsWith('2')) {
+      await queryClient.invalidateQueries(
+        getArticleMoreInfoQueryKey(articleId),
+      );
+      return res;
+    }
+  } catch (e) {
+    console.warn(e);
+  }
 };
