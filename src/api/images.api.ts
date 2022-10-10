@@ -21,18 +21,14 @@ export const deleteImage = (imageId: string) =>
   appAxios.delete<void>(`/images/${imageId}`);
 
 export const useImageQuery = (
-  imageId: string,
+  imageId: string | null,
   options: Omit<
     UseQueryOptions<AxiosResponse<Blob>, AxiosError>,
     'queryKey' | 'queryFn'
   >,
 ) =>
   useQuery<AxiosResponse<Blob>, AxiosError>(
-    getImageQueryKey(imageId),
-    () => {
-      return appAxios.get<Blob>(`/images/${imageId}`, {
-        responseType: 'blob',
-      });
-    },
-    options,
+    getImageQueryKey(imageId!),
+    () => getImage(imageId!),
+    { ...options, enabled: !!imageId },
   );

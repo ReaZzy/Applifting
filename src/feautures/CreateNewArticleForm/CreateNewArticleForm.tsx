@@ -50,7 +50,7 @@ const CreateNewArticleForm: React.FC = React.memo(() => {
       });
       navigate(
         generatePath(PATH_APP.article.editArticle, {
-          articleId: articleResponse.data?.articleId,
+          articleId: articleResponse?.data?.articleId,
         }),
       );
     } catch (err) {

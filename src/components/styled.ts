@@ -3,10 +3,17 @@ import styled, { css } from 'styled-components';
 export const Heading = styled.h3`
   font-size: ${({ theme }) => theme.typography.xl};
   font-weight: bold;
+  line-height: 28px;
 `;
 export const Title = styled.h2`
   font-size: ${({ theme }) => theme.typography.xxl};
   font-weight: bold;
+  line-height: 48px;
+`;
+
+export const Paragraph = styled.p`
+  font-size: ${({ theme }) => theme.typography.md};
+  line-height: 24px;
 `;
 
 export const Card = styled.div`
@@ -57,4 +64,11 @@ export const InputLabel = styled.p<{ hasError?: boolean }>`
 export const ErrorMessageText = styled.span`
   font-size: ${({ theme }) => theme.typography.sm};
   color: ${({ theme }) => theme.palette.error.main};
+`;
+
+export const InvisibleElement = styled.div`
+  display: inline-block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
 `;

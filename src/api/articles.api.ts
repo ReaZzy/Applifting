@@ -1,4 +1,8 @@
-import { useQuery } from 'react-query';
+import {
+  useInfiniteQuery,
+  UseInfiniteQueryOptions,
+  useQuery,
+} from 'react-query';
 import { UseQueryOptions } from 'react-query/types/react/types';
 import { getImageQueryKey } from '@src/api/images.api';
 import { queryClient } from '@src/api/queryClient';
@@ -13,14 +17,36 @@ import { AxiosError, AxiosResponse } from 'axios';
 
 export const getArticlesQueryKey = () => ['articles'];
 
-export const useArticlesQuery = (offset: number, limit = 10) =>
+export const getArticlesRequest = (offset: number, limit = 10) =>
+  appAxios.get<PaginatedResult<Article>>('/articles', {
+    params: { offset, limit },
+  });
+export const useArticlesQuery = (
+  offset: number,
+  limit = 10,
+  options?: UseQueryOptions<
+    AxiosResponse<PaginatedResult<Article>>,
+    AxiosError
+  >,
+) =>
   useQuery<AxiosResponse<PaginatedResult<Article>>, AxiosError>(
     getArticlesQueryKey(),
-    () => {
-      return appAxios.get<PaginatedResult<Article>>('/articles', {
-        params: { offset, limit },
-      });
-    },
+    () => getArticlesRequest(offset, limit),
+    options,
+  );
+
+export const useInfiniteArticlesQuery = (
+  offset: number,
+  limit = 10,
+  options?: UseInfiniteQueryOptions<
+    AxiosResponse<PaginatedResult<Article>>,
+    AxiosError
+  >,
+) =>
+  useInfiniteQuery<AxiosResponse<PaginatedResult<Article>>, AxiosError>(
+    getArticlesQueryKey(),
+    ({ pageParam = offset }) => getArticlesRequest(pageParam, limit),
+    options,
   );
 
 export const getArticleMoreInfoQueryKey = (articleId: string) => [
