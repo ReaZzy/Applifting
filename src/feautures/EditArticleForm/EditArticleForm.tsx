@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   patchArticleRequest,
@@ -77,6 +78,10 @@ const EditArticleForm: React.FC = React.memo(() => {
         title,
         imageId: imageRes?.data[0]?.imageId,
         articleId,
+      });
+      toast(`Article ${articleId} was successfully updated!`, {
+        type: 'success',
+        toastId: `article-updated-${articleId}`,
       });
       if (
         data?.data?.imageId &&

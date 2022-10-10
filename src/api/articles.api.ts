@@ -55,7 +55,11 @@ export const createArticleRequest = async ({
     });
     if (res?.status.toString().startsWith('2')) {
       await queryClient.invalidateQueries(getArticlesQueryKey());
-      await queryClient.invalidateQueries(getImageQueryKey(imageId));
+      if (res?.data?.imageId) {
+        await queryClient.invalidateQueries(
+          getImageQueryKey(res?.data?.imageId),
+        );
+      }
       return res;
     }
   } catch (e) {
@@ -85,7 +89,27 @@ export const patchArticleRequest = async ({
         getArticleMoreInfoQueryKey(articleId),
       );
       await queryClient.invalidateQueries(getArticlesQueryKey());
-      await queryClient.invalidateQueries(getImageQueryKey(imageId));
+      if (res?.data?.imageId) {
+        await queryClient.invalidateQueries(
+          getImageQueryKey(res?.data?.imageId),
+        );
+      }
+      return res;
+    }
+  } catch (e) {
+    console.warn(e);
+  }
+};
+
+export const deleteArticleRequest = async (articleId: string) => {
+  try {
+    const res = await appAxios.delete<void>(`/articles/${articleId}`);
+    if (res?.status.toString().startsWith('2')) {
+      await queryClient.invalidateQueries(
+        getArticleMoreInfoQueryKey(articleId),
+      );
+      await queryClient.invalidateQueries(getArticlesQueryKey());
+
       return res;
     }
   } catch (e) {
