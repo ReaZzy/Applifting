@@ -1,7 +1,7 @@
-import { QueryOptions, useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { UseQueryOptions } from 'react-query/types/react/types';
+import { getImageQueryKey } from '@src/api/images.api';
 import { queryClient } from '@src/api/queryClient';
-import { useQueryInvalidation } from '@src/hooks/useQueryInvalidation';
 import {
   Article,
   ArticleFull,
@@ -46,12 +46,21 @@ export const createArticleRequest = async ({
   imageId,
   title,
 }: Omit<CreateNewArticleQuery, 'image'> & { imageId?: string }) => {
-  return appAxios.post<ArticleFull>('/articles', {
-    perex,
-    content,
-    imageId,
-    title,
-  });
+  try {
+    const res = await appAxios.post<ArticleFull>('/articles', {
+      perex,
+      content,
+      imageId,
+      title,
+    });
+    if (res?.status.toString().startsWith('2')) {
+      await queryClient.invalidateQueries(getArticlesQueryKey());
+      await queryClient.invalidateQueries(getImageQueryKey(imageId));
+      return res;
+    }
+  } catch (e) {
+    console.warn(e);
+  }
 };
 
 export const patchArticleRequest = async ({
@@ -75,6 +84,8 @@ export const patchArticleRequest = async ({
       await queryClient.invalidateQueries(
         getArticleMoreInfoQueryKey(articleId),
       );
+      await queryClient.invalidateQueries(getArticlesQueryKey());
+      await queryClient.invalidateQueries(getImageQueryKey(imageId));
       return res;
     }
   } catch (e) {

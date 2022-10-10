@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Control, Controller, Path, UseFormResetField } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import Button from '@src/components/Button/Button';
@@ -26,10 +26,22 @@ const RHFFileInput = <T extends Record<string, unknown>>({
   ...rest
 }: FileInputProps<T>): React.ReactElement => {
   const theme = useTheme();
-  const handleDeleteImage = () => {
+  const handleDeleteImage = useCallback(() => {
     if (typeof resetField === 'function')
       resetField(name, { defaultValue: null, keepDirty: true });
-  };
+  }, [name, resetField]);
+
+  const getImage = useCallback((value: File | Blob) => {
+    const isFile = value instanceof File;
+    return (
+      <Image
+        alt={isFile ? value.name : 'image'}
+        width="100px"
+        height="75px"
+        src={URL.createObjectURL(value)}
+      />
+    );
+  }, []);
   return (
     <Controller
       control={control}
@@ -43,14 +55,7 @@ const RHFFileInput = <T extends Record<string, unknown>>({
           <div>
             {label && <InputLabel hasError={hasError}>{label}</InputLabel>}
             <Flex gap={`${theme.spacing.common}px`} flexDirection="column">
-              {isExisting && (
-                <Image
-                  alt={isFile ? value.name : 'image'}
-                  width="100px"
-                  height="75px"
-                  src={URL.createObjectURL(value)}
-                />
-              )}
+              {isExisting && getImage(value)}
               <Flex gap={`${theme.spacing.common}px`}>
                 <FileInputLabel primary={isExisting}>
                   <HiddenInput

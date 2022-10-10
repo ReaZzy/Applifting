@@ -10,7 +10,7 @@ export const createImageRequest = async (image: File) => {
   return appAxios.post<ImagesAPIResponse>('/images', formData);
 };
 
-export const getImageQueryKey = (imageId: string) => ['article', imageId];
+export const getImageQueryKey = (imageId?: string) => ['image', imageId];
 
 export const getImage = (imageId: string) =>
   appAxios.get<Blob>(`/images/${imageId}`, {
