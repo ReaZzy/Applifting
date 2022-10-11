@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -22,6 +22,7 @@ import {
 import axios from 'axios';
 
 const EditArticleForm: React.FC = React.memo(() => {
+  const [articleImage, setArticleImage] = useState<Blob | File | null>(null);
   const { articleId } = useParams<{ articleId: string }>() as {
     articleId: string;
   };
@@ -36,6 +37,7 @@ const EditArticleForm: React.FC = React.memo(() => {
     reset,
     setError,
     control,
+    watch,
     formState: { errors, isSubmitting, isDirty },
   } = useForm<CreateNewArticleQuery>({
     resolver: zodResolver(createNewArticleValidationSchema),
@@ -50,8 +52,9 @@ const EditArticleForm: React.FC = React.memo(() => {
         if (imageId) {
           image = await getImage(imageId);
         }
+        setArticleImage(image?.data ?? null);
         reset({
-          ...(image?.data ? { image: image.data } : {}),
+          image: image?.data ?? null,
           perex,
           title,
           content,
@@ -116,7 +119,11 @@ const EditArticleForm: React.FC = React.memo(() => {
     <CreateNewArticleFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Flex gap="32px" alignItems="center">
         <Title>Edit article</Title>
-        <Button type="submit" isLoading={isSubmitting} disabled={!isDirty}>
+        <Button
+          type="submit"
+          isLoading={isSubmitting}
+          disabled={!isDirty && watch('image') === articleImage}
+        >
           Publish article
         </Button>
       </Flex>

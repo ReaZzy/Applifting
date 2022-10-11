@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex } from '@src/components/styled';
+import { Flex, Title } from '@src/components/styled';
 import { ArticleComment } from '@src/types/articles.api.types';
 
 import Comment from './Comment/Comment';
@@ -11,6 +11,7 @@ interface CommentsListProps {
 const CommentsList: React.FC<CommentsListProps> = React.memo(({ comments }) => {
   return (
     <Flex flexDirection="column">
+      <Title>Comments</Title>
       {comments.map((comment) => (
         <Comment
           key={comment.commentId}

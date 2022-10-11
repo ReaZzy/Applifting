@@ -9,7 +9,7 @@ export const appAxios = axios.create({
 
 export const shouldIgnoreInterception = (url?: string, _method = 'get') => {
   if (!url) return true;
-  if (['images/', 'comments/'].includes(url)) {
+  if (url.includes('/images') || url.includes('/comments')) {
     return true;
   }
 };

@@ -86,6 +86,7 @@ export const createArticleRequest = async ({
     if (res?.status.toString().startsWith('2')) {
       await queryClient.invalidateQueries(getArticlesQueryKey());
       await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
+      await queryClient.invalidateQueries(getImageQueryKey(imageId));
       if (res?.data?.imageId) {
         await queryClient.invalidateQueries(
           getImageQueryKey(res?.data?.imageId),
