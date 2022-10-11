@@ -19,8 +19,9 @@ const ArticleFull: React.FC = React.memo(() => {
   const { articleId } = useParams<{ articleId: string }>() as {
     articleId: string;
   };
-  const { isLoading, data } = useArticleMoreInfoQuery(articleId, {
+  const { isLoading, data, isSuccess } = useArticleMoreInfoQuery(articleId, {
     staleTime: Infinity,
+    retry: 3,
   });
 
   const getEditArticleButton = useMemo(() => {
@@ -36,7 +37,7 @@ const ArticleFull: React.FC = React.memo(() => {
     );
   }, [data?.data?.articleId, isAuth]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || !isSuccess) return <Spinner />;
   return (
     <Flex flexDirection="column" gap={`${theme.spacing.common * 3}px`}>
       <Flex flexDirection="column" gap={`${theme.spacing.common}px`}>
@@ -45,19 +46,18 @@ const ArticleFull: React.FC = React.memo(() => {
           alignItems="center"
           gap={`${theme.spacing.common}px`}
         >
-          <Title>{data?.data?.title}</Title>
+          <Title>{data.data.title}</Title>
           {getEditArticleButton}
         </Flex>
-        {data?.data?.lastUpdatedAt && (
-          <Paragraph>{getFormattedDate(data.data.lastUpdatedAt)}</Paragraph>
-        )}
+
+        <Paragraph>{getFormattedDate(data.data.lastUpdatedAt)}</Paragraph>
       </Flex>
 
-      {data?.data?.imageId && (
+      {data.data.imageId && (
         <ServerImage imageId={data.data.imageId} maxHeight="420px" />
       )}
       <ContentWrapper>
-        <MarkdownEditor.Markdown source={data?.data?.content} />
+        <MarkdownEditor.Markdown source={data.data.content} />
       </ContentWrapper>
     </Flex>
   );
