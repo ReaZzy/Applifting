@@ -1,3 +1,9 @@
+import {
+  AlignItems,
+  FlexDirection,
+  FlexWrap,
+  JustifyContent,
+} from '@src/types/flex.types';
 import styled, { css } from 'styled-components';
 
 export const Heading = styled.h3`
@@ -26,10 +32,11 @@ export const Card = styled.div`
 `;
 
 export const Flex = styled.div<{
-  flexDirection?: string;
+  flexDirection?: FlexDirection;
   gap?: string;
-  justifyContent?: string;
-  alignItems?: string;
+  justifyContent?: JustifyContent;
+  alignItems?: AlignItems;
+  flexWrap?: FlexWrap;
 }>`
   display: flex;
   width: 100%;
@@ -37,6 +44,7 @@ export const Flex = styled.div<{
   gap: ${({ gap }) => gap ?? '0'};
   justify-content: ${({ justifyContent }) => justifyContent ?? 'flex-start'};
   align-items: ${({ alignItems }) => alignItems ?? 'start'};
+  flex-wrap: ${({ flexWrap }) => flexWrap ?? 'no-wrap'};
 `;
 
 export const Image = styled.img<{

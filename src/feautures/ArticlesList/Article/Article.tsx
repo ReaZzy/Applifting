@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { generatePath } from 'react-router-dom';
 import ServerImage from '@src/components/ServerImage/ServerImage';
 import {
