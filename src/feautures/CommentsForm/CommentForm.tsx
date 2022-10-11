@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { uploadComment } from '@src/api/comments.api';
 import Button from '@src/components/Button/Button';
+import { Flex } from '@src/components/styled';
 import RHFTextField from '@src/components/TextField/RHFTextField';
 import { CommentsFormWrapper } from '@src/feautures/CommentsForm/commentsForm.styles';
 import {
@@ -10,13 +11,14 @@ import {
   CommentUploadQuery,
 } from '@src/types/comments.api.types';
 import axios from 'axios';
+import { useTheme } from 'styled-components';
 
 interface CommentsFormProps {
   articleId: string;
-  author: string;
 }
 
-const CommentsForm: React.FC<CommentsFormProps> = ({ articleId, author }) => {
+const CommentsForm: React.FC<CommentsFormProps> = ({ articleId }) => {
+  const theme = useTheme();
   const {
     register,
     handleSubmit,
@@ -28,10 +30,14 @@ const CommentsForm: React.FC<CommentsFormProps> = ({ articleId, author }) => {
     criteriaMode: 'all',
     defaultValues: {
       comment: '',
+      author: '',
     },
   });
 
-  const onSubmit: SubmitHandler<CommentUploadQuery> = async ({ comment }) => {
+  const onSubmit: SubmitHandler<CommentUploadQuery> = async ({
+    comment,
+    author,
+  }) => {
     try {
       await uploadComment({
         content: comment,
@@ -55,13 +61,23 @@ const CommentsForm: React.FC<CommentsFormProps> = ({ articleId, author }) => {
 
   return (
     <CommentsFormWrapper onSubmit={handleSubmit(onSubmit)}>
-      <RHFTextField<CommentUploadQuery>
-        name="comment"
-        label="Comment"
-        placeholder="Write your opinion"
-        register={register}
-        errors={errors}
-      />
+      <Flex flexDirection="column" gap={`${theme.spacing.common * 2}px`}>
+        <RHFTextField<CommentUploadQuery>
+          name="author"
+          label="Author"
+          placeholder="Write your name"
+          register={register}
+          errors={errors}
+        />
+        <RHFTextField<CommentUploadQuery>
+          name="comment"
+          label="Comment"
+          placeholder="Write your opinion"
+          register={register}
+          errors={errors}
+        />
+      </Flex>
+
       <Button type="submit" isLoading={isSubmitting} disabled={!isDirty}>
         Upload
       </Button>

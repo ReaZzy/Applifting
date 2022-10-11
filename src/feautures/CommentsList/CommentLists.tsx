@@ -17,7 +17,7 @@ const CommentsList: React.FC<CommentsListProps> = React.memo(({ comments }) => {
           commentId={comment.commentId}
           author={comment.author}
           content={comment.content}
-          postedAt={comment.postedAt}
+          createdAt={comment.createdAt}
           score={comment.score}
         />
       ))}

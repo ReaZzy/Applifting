@@ -123,12 +123,7 @@ const ArticleFull: React.FC = React.memo(() => {
       <ContentWrapper>
         <MarkdownEditor.Markdown source={data.data.content} />
       </ContentWrapper>
-      {accessToken && (
-        <CommentsForm
-          articleId={data?.data?.articleId}
-          author={`${accessToken?.split('-')[0]}`}
-        />
-      )}
+      {accessToken && <CommentsForm articleId={data?.data?.articleId} />}
 
       <CommentsList comments={data?.data?.comments} />
     </Flex>

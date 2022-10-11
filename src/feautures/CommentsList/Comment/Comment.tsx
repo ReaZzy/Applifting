@@ -5,11 +5,12 @@ import { Flex, Heading, Paragraph } from '@src/components/styled';
 import { accessTokenSelector } from '@src/store/slices/auth.slice';
 import { useTypedSelector } from '@src/store/store.hooks';
 import { ArticleComment } from '@src/types/articles.api.types';
+import { getFormattedDate } from '@src/utils/date.utils';
 
 type CommentProps = Omit<ArticleComment, 'articleId'>;
 
 const Comment: React.FC<CommentProps> = React.memo(
-  ({ commentId, author, content, postedAt, score }) => {
+  ({ commentId, author, content, createdAt, score }) => {
     const isAuth = useTypedSelector(accessTokenSelector);
     const [commentScore, setCommentScore] = useState<number>(score);
 
@@ -31,7 +32,7 @@ const Comment: React.FC<CommentProps> = React.memo(
       <Flex flexDirection="column">
         <Flex justifyContent="space-between" alignItems="center">
           <Heading>{author}</Heading>
-          <Paragraph>{postedAt}</Paragraph>
+          <Paragraph>{getFormattedDate(createdAt)}</Paragraph>
         </Flex>
         <Paragraph>{content}</Paragraph>
         <Flex justifyContent="center" alignItems="center">

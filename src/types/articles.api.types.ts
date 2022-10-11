@@ -51,7 +51,7 @@ export interface ArticleComment {
   articleId: string;
   author: string;
   content: string;
-  postedAt: string;
+  createdAt: string;
   score: number;
 }
 
