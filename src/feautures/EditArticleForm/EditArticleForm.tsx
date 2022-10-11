@@ -87,7 +87,7 @@ const EditArticleForm: React.FC = React.memo(() => {
         data?.data?.imageId &&
         (articleRes?.data?.imageId !== data?.data?.imageId || !image)
       ) {
-        await deleteImage(data.data.imageId);
+        await deleteImage(data.data.imageId, data?.data?.articleId);
       }
       reset({
         image,

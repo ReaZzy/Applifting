@@ -17,6 +17,9 @@ const EditArticle = withSuspense(
 const ArticleView = withSuspense(
   React.lazy(() => import('@src/pages/ArticleView/ArticleView')),
 );
+const ArticlesAdmin = withSuspense(
+  React.lazy(() => import('@src/pages/ArticlesAdmin')),
+);
 const NotFound = withSuspense(React.lazy(() => import('@src/pages/NotFound')));
 
 const AppRouter: React.FC = () =>
@@ -41,7 +44,7 @@ const AppRouter: React.FC = () =>
               children: [
                 {
                   index: true,
-                  element: <div>My articles</div>,
+                  element: <ArticlesAdmin />,
                 },
                 {
                   path: PATH_APP.article.addArticle,

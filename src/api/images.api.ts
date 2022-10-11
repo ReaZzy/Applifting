@@ -1,5 +1,7 @@
 import { useQuery } from 'react-query';
 import { UseQueryOptions } from 'react-query/types/react/types';
+import { getArticleMoreInfoQueryKey } from '@src/api/articles.api';
+import { queryClient } from '@src/api/queryClient';
 import { ImagesAPIResponse } from '@src/types/images.api.types';
 import { appAxios } from '@src/utils/axios.utils';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -17,8 +19,20 @@ export const getImage = (imageId: string) =>
     responseType: 'blob',
   });
 
-export const deleteImage = (imageId: string) =>
-  appAxios.delete<void>(`/images/${imageId}`);
+export const deleteImage = async (imageId: string, articleId?: string) => {
+  try {
+    const res = await appAxios.delete<void>(`/images/${imageId}`);
+    await queryClient.invalidateQueries(getImageQueryKey(imageId));
+    if (articleId) {
+      await queryClient.invalidateQueries(
+        getArticleMoreInfoQueryKey(articleId),
+      );
+    }
+    return res;
+  } catch (e) {
+    console.warn(e);
+  }
+};
 
 export const useImageQuery = (
   imageId: string | null,

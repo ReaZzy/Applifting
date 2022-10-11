@@ -8,7 +8,7 @@ import { useTheme } from 'styled-components';
 
 const ArticlesList: React.FC = React.memo(() => {
   const theme = useTheme();
-  const { isLoading, data, fetchNextPage, isFetchingNextPage } =
+  const { isLoading, data, fetchNextPage, isFetchingNextPage, isSuccess } =
     useInfiniteArticlesQuery(0, 10, {
       getNextPageParam: (lastPage) => {
         const lastPagePagination = lastPage?.data?.pagination;
@@ -42,8 +42,8 @@ const ArticlesList: React.FC = React.memo(() => {
   );
 
   const getArticlesList = useMemo(() => {
-    if (data?.pages?.length === 0 || isLoading) return <Spinner />;
-    return data?.pages.map((articlesPage) =>
+    if (!isSuccess || isLoading) return <Spinner />;
+    return data.pages.map((articlesPage) =>
       articlesPage.data?.items?.map(
         ({ articleId, title, perex, imageId, lastUpdatedAt }) => (
           <Article
@@ -57,7 +57,7 @@ const ArticlesList: React.FC = React.memo(() => {
         ),
       ),
     );
-  }, [data?.pages, isLoading]);
+  }, [data?.pages, isLoading, isSuccess]);
 
   return (
     <Flex gap={`${theme.spacing.common * 4}px`} flexDirection="column">

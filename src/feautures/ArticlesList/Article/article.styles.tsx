@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Flex } from '@src/components/styled';
+import { deviceMaxWidth } from '@src/utils/theme';
 import styled from 'styled-components';
 
 export const ArticleWrapper = styled(Link)`
-  height: 244px;
   width: 100%;
   transition: all 0.3s;
   border-radius: 8px;
@@ -13,12 +13,21 @@ export const ArticleWrapper = styled(Link)`
   &:hover {
     box-shadow: ${({ theme }) => theme.shadow.darken};
   }
+
+  @media ${deviceMaxWidth.phone} {
+    flex-direction: column;
+    height: inherit;
+  }
 `;
 
 export const ArticleImageWrapper = styled.div`
   width: 272px;
+  height: 244px;
   flex-shrink: 0;
-  height: 100%;
+
+  @media ${deviceMaxWidth.phone} {
+    width: 100%;
+  }
 `;
 
 export const ArticleContentWrapper = styled(Flex)`

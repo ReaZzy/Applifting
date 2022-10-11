@@ -15,7 +15,11 @@ import { PaginatedResult } from '@src/types/common.types';
 import { appAxios } from '@src/utils/axios.utils';
 import { AxiosError, AxiosResponse } from 'axios';
 
-export const getArticlesQueryKey = () => ['articles'];
+export const getArticlesQueryKey = (offset?: number) => {
+  if (!offset) return ['articles'];
+  return ['articles', offset];
+};
+export const getArticlesInfinityQueryKey = () => ['articles-infinite'];
 
 export const getArticlesRequest = (offset: number, limit = 10) =>
   appAxios.get<PaginatedResult<Article>>('/articles', {
@@ -30,7 +34,7 @@ export const useArticlesQuery = (
   >,
 ) =>
   useQuery<AxiosResponse<PaginatedResult<Article>>, AxiosError>(
-    getArticlesQueryKey(),
+    getArticlesInfinityQueryKey(),
     () => getArticlesRequest(offset, limit),
     options,
   );
@@ -81,6 +85,7 @@ export const createArticleRequest = async ({
     });
     if (res?.status.toString().startsWith('2')) {
       await queryClient.invalidateQueries(getArticlesQueryKey());
+      await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
       if (res?.data?.imageId) {
         await queryClient.invalidateQueries(
           getImageQueryKey(res?.data?.imageId),
@@ -115,6 +120,7 @@ export const patchArticleRequest = async ({
         getArticleMoreInfoQueryKey(articleId),
       );
       await queryClient.invalidateQueries(getArticlesQueryKey());
+      await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
       if (res?.data?.imageId) {
         await queryClient.invalidateQueries(
           getImageQueryKey(res?.data?.imageId),
@@ -135,6 +141,7 @@ export const deleteArticleRequest = async (articleId: string) => {
         getArticleMoreInfoQueryKey(articleId),
       );
       await queryClient.invalidateQueries(getArticlesQueryKey());
+      await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
 
       return res;
     }
