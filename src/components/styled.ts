@@ -41,12 +41,16 @@ export const Flex = styled.div<{
 
 export const Image = styled.img<{
   objectFit?: string;
-  width?: string;
-  height?: string;
+  width?: string | number;
+  height?: string | number;
+  maxHeight?: string;
+  maxWidth?: string;
 }>`
   object-fit: ${({ objectFit }) => objectFit ?? 'cover'};
   width: ${({ width }) => width ?? '100%'};
   height: ${({ height }) => height ?? '100%'};
+  max-height: ${({ maxHeight }) => maxHeight ?? 'inherit'};
+  max-width: ${({ maxWidth }) => maxWidth ?? 'inherit'};
 `;
 
 export const InputLabel = styled.p<{ hasError?: boolean }>`
