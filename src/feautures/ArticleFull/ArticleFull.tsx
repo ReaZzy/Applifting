@@ -62,6 +62,9 @@ const ArticleFull: React.FC = React.memo(() => {
     if (
       ['commentUpVoted', 'commentDownVoted'].includes(wsEventData?.changeType)
     ) {
+      await queryClient.invalidateQueries(
+        getArticleMoreInfoQueryKey(articleId),
+      );
       return queryClient.setQueriesData(
         getArticleMoreInfoQueryKey(articleId),
         (oldData) => {
