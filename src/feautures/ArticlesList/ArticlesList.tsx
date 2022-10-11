@@ -1,8 +1,8 @@
 import React, { useMemo, useRef } from 'react';
 import { useInfiniteArticlesQuery } from '@src/api/articles.api';
-import Article from '@src/components/Article/Article';
 import Spinner from '@src/components/Spinner/Spinner';
 import { Flex, InvisibleElement } from '@src/components/styled';
+import Article from '@src/feautures/ArticlesList/Article/Article';
 import { useIntersectionObserver } from '@src/hooks/useIntersectionObserver';
 import { useTheme } from 'styled-components';
 

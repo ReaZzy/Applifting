@@ -6,3 +6,10 @@ export const appAxios = axios.create({
     ['X-API-KEY']: process.env.API_SECRET_KEY ?? '',
   },
 });
+
+export const shouldIgnoreInterception = (url?: string, _method = 'get') => {
+  if (!url) return true;
+  if (url.includes('images/')) {
+    return true;
+  }
+};

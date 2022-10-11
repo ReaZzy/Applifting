@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { UseQueryOptions } from 'react-query/types/react/types';
 import { ImagesAPIResponse } from '@src/types/images.api.types';
-import { appAxios } from '@src/utils/axios';
+import { appAxios } from '@src/utils/axios.utils';
 import { AxiosError, AxiosResponse } from 'axios';
 
 export const createImageRequest = async (image: File) => {

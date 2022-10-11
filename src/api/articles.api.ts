@@ -12,7 +12,7 @@ import {
   CreateNewArticleQuery,
 } from '@src/types/articles.api.types';
 import { PaginatedResult } from '@src/types/common.types';
-import { appAxios } from '@src/utils/axios';
+import { appAxios } from '@src/utils/axios.utils';
 import { AxiosError, AxiosResponse } from 'axios';
 
 export const getArticlesQueryKey = () => ['articles'];

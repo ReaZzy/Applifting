@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { PATH_AUTH } from '@src/router/paths';
+import { PATH_AUTH, PATH_ERROR_PAGE } from '@src/router/paths';
 import {
   accessTokenSelector,
   setAccessToken,
 } from '@src/store/slices/auth.slice';
 import { useTypedDispatch, useTypedSelector } from '@src/store/store.hooks';
 import { getTokenFromLocalStorage } from '@src/utils/auth.utils';
-import { appAxios } from '@src/utils/axios';
+import { appAxios, shouldIgnoreInterception } from '@src/utils/axios.utils';
 import axios, { AxiosError } from 'axios';
 
 interface AxiosInterceptorProps {
@@ -19,6 +19,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
   const accessToken = useTypedSelector(accessTokenSelector);
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   useEffect(() => {
     appAxios.interceptors.request.use(
       (config) => {
@@ -59,10 +60,26 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
           });
         }
 
+        if (
+          !shouldIgnoreInterception(
+            response?.config?.url,
+            response?.config?.method,
+          ) &&
+          response?.status === 404
+        ) {
+          toast(`Page ${location.pathname} was not found`, {
+            type: 'error',
+            toastId: 'page-not-found-error',
+          });
+          navigate(PATH_ERROR_PAGE.page404, {
+            state: { ...location.state, from: location.pathname },
+          });
+        }
+
         return Promise.reject(error);
       },
     );
-  }, [accessToken, dispatch, navigate]);
+  }, [accessToken, dispatch, location.pathname, location.state, navigate]);
 
   return children;
 };

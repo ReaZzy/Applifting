@@ -1,15 +1,16 @@
 import React, { useMemo } from 'react';
 import { generatePath } from 'react-router-dom';
+import ServerImage from '@src/components/ServerImage/ServerImage';
 import {
   ArticleContentWrapper,
   ArticleImageWrapper,
   ArticleWrapper,
-} from '@src/components/Article/article.styles';
-import ServerImage from '@src/components/ServerImage/ServerImage';
+} from '@src/feautures/ArticlesList/Article/article.styles';
 import { PATH_APP } from '@src/router/paths';
+import { getFormattedDate } from '@src/utils/date.utils';
 import { useTheme } from 'styled-components';
 
-import { Heading, Paragraph } from '../styled';
+import { Heading, Paragraph } from '../../../components/styled';
 
 interface ArticleProps {
   imageId: string | null;
@@ -22,18 +23,9 @@ interface ArticleProps {
 const Article: React.FC<ArticleProps> = React.memo(
   ({ imageId, lastUpdatedAt, perex, title, articleId }) => {
     const theme = useTheme();
-
-    const articleLastUpdatedDate = useMemo(() => {
-      const lastUpdatedDate = new Date(lastUpdatedAt);
-      const days = `0${lastUpdatedDate.getDate()}`.slice(-2);
-      const months = `0${lastUpdatedDate.getMonth() + 1}`.slice(-2);
-      const years = lastUpdatedDate.getFullYear();
-      return `${months}/${days}/${years}`;
-    }, [lastUpdatedAt]);
-
     return (
       <ArticleWrapper
-        to={generatePath(PATH_APP.article.editArticle, { articleId })}
+        to={generatePath(PATH_APP.article.articleView, { articleId })}
       >
         <ArticleImageWrapper>
           <ServerImage imageId={imageId} />
@@ -44,7 +36,7 @@ const Article: React.FC<ArticleProps> = React.memo(
           gap={`${theme.spacing.common * 2}px`}
         >
           <Heading>{title}</Heading>
-          {articleLastUpdatedDate}
+          {getFormattedDate(lastUpdatedAt)}
           <Paragraph>{perex}</Paragraph>
         </ArticleContentWrapper>
       </ArticleWrapper>

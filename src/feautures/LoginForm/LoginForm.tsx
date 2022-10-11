@@ -16,7 +16,7 @@ import {
   AuthApiLoginQueryResult,
   loginFormValidationSchema,
 } from '@src/types/auth.api.types';
-import { appAxios } from '@src/utils/axios';
+import { appAxios } from '@src/utils/axios.utils';
 import axios from 'axios';
 
 const LoginForm: React.FC = React.memo(() => {
