@@ -12,9 +12,7 @@ export const useReactQuerySubscription = <T = unknown>(
   }, []);
 
   useLayoutEffect(() => {
-    if (typeof callback === 'function') {
-      wsCallback.current = callback;
-    }
+    wsCallback.current = callback;
   }, [callback]);
 
   useLayoutEffect(() => {

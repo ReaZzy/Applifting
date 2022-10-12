@@ -1,22 +1,17 @@
-import {
-  RefObject,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-export type UseIntersectionObserver = (
+import { RefObject, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+
+type UseIntersectionObserver = (
   ref: RefObject<Element>,
   callback: IntersectionObserverCallback,
   options?: IntersectionObserverInit & { observe?: boolean },
 ) => void;
+
 export const useIntersectionObserver: UseIntersectionObserver = (
   ref,
   callback,
   options,
 ) => {
-  const [element, setElement] = useState<Element | null>(null);
+  const element = useRef<Element | null>(null);
   const intersectionObserverCallback = useRef<IntersectionObserverCallback>(
     () => {},
   );
@@ -26,21 +21,19 @@ export const useIntersectionObserver: UseIntersectionObserver = (
   }, [callback, options]);
 
   useEffect(() => {
-    setElement(ref.current);
+    element.current = ref.current;
   }, [ref]);
 
   useEffect(() => {
-    if (typeof callback === 'function') {
-      intersectionObserverCallback.current = callback;
-    }
+    intersectionObserverCallback.current = callback;
   }, [callback]);
 
   useLayoutEffect(() => {
-    if (!element) return;
+    if (!element.current) return;
     if (options?.observe) {
-      observer.observe(element);
+      observer.observe(element.current);
     } else {
-      observer?.unobserve(element);
+      observer.unobserve(element.current);
     }
 
     return () => {
