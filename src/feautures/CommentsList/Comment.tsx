@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { voteDownComment, voteUpComment } from '@src/api/comments.api';
 import Button from '@src/components/Button/Button';
 import { Flex, Heading, Paragraph } from '@src/components/styled';
@@ -13,6 +13,10 @@ const Comment: React.FC<CommentProps> = React.memo(
   ({ commentId, author, content, createdAt, score }) => {
     const isAuth = useTypedSelector(accessTokenSelector);
     const [commentScore, setCommentScore] = useState<number>(score);
+
+    useEffect(() => {
+      setCommentScore(score);
+    }, [score]);
 
     const handleVoteUpComment = async () => {
       const response = await voteUpComment(commentId);

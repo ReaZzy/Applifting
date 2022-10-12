@@ -111,15 +111,14 @@ const ArticleFull: React.FC = React.memo(() => {
 
         <Paragraph>{getFormattedDate(data.data.lastUpdatedAt)}</Paragraph>
       </Flex>
-
       {data.data.imageId && (
         <ServerImage imageId={data.data.imageId} maxHeight="420px" />
       )}
       <ContentWrapper>
         <MarkdownEditor.Markdown source={data.data.content} />
       </ContentWrapper>
-      {accessToken && <CommentsForm articleId={data?.data?.articleId} />}
 
+      {accessToken && <CommentsForm articleId={data?.data?.articleId} />}
       <CommentsList comments={data?.data?.comments} />
     </Flex>
   );
