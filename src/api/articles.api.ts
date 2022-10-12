@@ -5,7 +5,6 @@ import {
   useQuery,
 } from 'react-query';
 import { UseQueryOptions } from 'react-query/types/react/types';
-import { UseMutation } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import { getImageQueryKey } from '@src/api/images.api';
 import { queryClient } from '@src/api/queryClient';
 import {

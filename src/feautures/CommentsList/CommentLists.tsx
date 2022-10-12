@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { shallowEqual } from 'react-redux';
 import { Flex, Title } from '@src/components/styled';
 import { ArticleComment } from '@src/types/articles.api.types';
 
