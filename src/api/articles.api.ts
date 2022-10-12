@@ -36,7 +36,7 @@ export const useArticlesQuery = (
   >,
 ) =>
   useQuery<AxiosResponse<PaginatedResult<Article>>, AxiosError>(
-    getArticlesInfinityQueryKey(),
+    getArticlesQueryKey(offset),
     () => getArticlesRequest(offset, limit),
     options,
   );
@@ -50,7 +50,7 @@ export const useInfiniteArticlesQuery = (
   >,
 ) =>
   useInfiniteQuery<AxiosResponse<PaginatedResult<Article>>, AxiosError>(
-    getArticlesQueryKey(),
+    getArticlesInfinityQueryKey(),
     ({ pageParam = offset }) => getArticlesRequest(pageParam, limit),
     options,
   );
@@ -126,15 +126,19 @@ export const patchArticleRequest = async ({
   return res;
 };
 
-export const useArticleDelete = (articleId: string) => {
+export const useArticleDelete = () => {
   return useMutation<AxiosResponse<void>, AxiosError, string>(
     (articleIdToDelete) =>
       appAxios.delete<void>(`/articles/${articleIdToDelete}`),
     {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries(
-          getArticleMoreInfoQueryKey(articleId),
-        );
+      onSuccess: async (res) => {
+        const articleId = res?.config?.url?.split('/').at(-1);
+        if (articleId) {
+          await queryClient.invalidateQueries(
+            getArticleMoreInfoQueryKey(articleId),
+          );
+        }
+
         await queryClient.invalidateQueries(getArticlesQueryKey());
         await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
       },

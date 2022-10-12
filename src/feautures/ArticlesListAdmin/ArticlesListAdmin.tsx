@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { useArticlesQuery } from '@src/api/articles.api';
+import { toast } from 'react-toastify';
+import { useArticleDelete, useArticlesQuery } from '@src/api/articles.api';
 import Button from '@src/components/Button/Button';
 import Spinner from '@src/components/Spinner/Spinner';
 import { Flex, Paragraph } from '@src/components/styled';
@@ -8,6 +9,8 @@ import { useTheme } from 'styled-components';
 
 const ArticleListAdmin: React.FC = () => {
   const theme = useTheme();
+  const [checkedArticles, setCheckedArticles] = useState<Array<string>>([]);
+  const deleteRequest = useArticleDelete();
   const [offset, setOffset] = useState<number>(0);
   const { isLoading, data, isSuccess } = useArticlesQuery(offset, 10, {
     staleTime: Infinity,
@@ -28,24 +31,25 @@ const ArticleListAdmin: React.FC = () => {
     setOffset((prev) => prev - 10);
   };
 
+  const handleDeleteCouple = () => {
+    checkedArticles.forEach(async (articleId) => {
+      const res = await deleteRequest.mutateAsync(articleId);
+      if (res.status.toString().startsWith('2')) {
+        toast(`Article ${articleId} deleted successfully`, {
+          type: 'success',
+          toastId: `${articleId}-delete-success`,
+        });
+      }
+    });
+  };
+
   const getAdminArticlesList = useMemo(() => {
     if (isLoading || !isSuccess) return <Spinner />;
-    return data?.data?.items.map((article) => (
-      <ArticleAdmin
-        articleId={article.articleId}
-        perex={article.perex}
-        title={article.title}
-        lastUpdatedAt={article.lastUpdatedAt}
-        createdAt={article.lastUpdatedAt}
-      />
-    ));
-  }, [data?.data?.items, isLoading, isSuccess]);
-
-  return (
-    <div>
-      <Flex gap={`${theme.spacing.common * 2}px`} flexDirection="column">
-        <table>
+    return (
+      <table>
+        <thead>
           <tr>
+            <th />
             <th>Article id</th>
             <th>Created at</th>
             <th>Last updated at</th>
@@ -53,9 +57,36 @@ const ArticleListAdmin: React.FC = () => {
             <th>Perex</th>
             <th>Actions</th>
           </tr>
-          {getAdminArticlesList}
-        </table>
-      </Flex>
+        </thead>
+        <tbody>
+          {data?.data?.items.map((article) => (
+            <ArticleAdmin
+              key={article.articleId}
+              articleId={article.articleId}
+              perex={article.perex}
+              title={article.title}
+              lastUpdatedAt={article.lastUpdatedAt}
+              createdAt={article.lastUpdatedAt}
+              setCheckedArticles={setCheckedArticles}
+              checkedArticles={checkedArticles}
+            />
+          ))}
+        </tbody>
+      </table>
+    );
+  }, [checkedArticles, data?.data?.items, isLoading, isSuccess]);
+
+  return (
+    <div>
+      {checkedArticles.length > 0 && (
+        <Button
+          isLoading={deleteRequest.isLoading}
+          onClick={handleDeleteCouple}
+        >
+          Delete selected
+        </Button>
+      )}
+      {getAdminArticlesList}
       <Flex gap={`${theme.spacing.common * 2}px`}>
         <Paragraph>Total: {currentPagination?.total ?? 0}</Paragraph>
         <Paragraph>
