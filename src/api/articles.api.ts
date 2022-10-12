@@ -1,9 +1,11 @@
 import {
   useInfiniteQuery,
   UseInfiniteQueryOptions,
+  useMutation,
   useQuery,
 } from 'react-query';
 import { UseQueryOptions } from 'react-query/types/react/types';
+import { UseMutation } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import { getImageQueryKey } from '@src/api/images.api';
 import { queryClient } from '@src/api/queryClient';
 import {
@@ -124,12 +126,18 @@ export const patchArticleRequest = async ({
   return res;
 };
 
-export const deleteArticleRequest = async (articleId: string) => {
-  const res = await appAxios.delete<void>(`/articles/${articleId}`);
-  if (res?.status.toString().startsWith('2')) {
-    await queryClient.invalidateQueries(getArticleMoreInfoQueryKey(articleId));
-    await queryClient.invalidateQueries(getArticlesQueryKey());
-    await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
-  }
-  return res;
+export const useArticleDelete = (articleId: string) => {
+  return useMutation<AxiosResponse<void>, AxiosError, string>(
+    (articleIdToDelete) =>
+      appAxios.delete<void>(`/articles/${articleIdToDelete}`),
+    {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(
+          getArticleMoreInfoQueryKey(articleId),
+        );
+        await queryClient.invalidateQueries(getArticlesQueryKey());
+        await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
+      },
+    },
+  );
 };

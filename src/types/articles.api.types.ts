@@ -15,7 +15,7 @@ export const createNewArticleValidationSchema = z.object({
       required_error: 'Perex is required field',
     })
     .min(2)
-    .max(64),
+    .max(128),
   image: z
     .any()
     .optional()
@@ -33,7 +33,7 @@ export const createNewArticleValidationSchema = z.object({
       required_error: 'Title is required field',
     })
     .min(2)
-    .max(32),
+    .max(64),
   content: z
     .string({
       invalid_type_error: 'Content must be a string',
