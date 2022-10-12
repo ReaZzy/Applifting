@@ -93,7 +93,7 @@ const EditArticleForm: React.FC = React.memo(() => {
         await deleteImage(data.data.imageId, data?.data?.articleId);
       }
       reset({
-        image,
+        image: image ?? null,
         perex,
         title,
         content,
@@ -122,6 +122,8 @@ const EditArticleForm: React.FC = React.memo(() => {
         <Button
           type="submit"
           isLoading={isSubmitting}
+          // NOTE FOR REVIEW: as I understood react-hook-form shallowEqual always
+          // returns true for files, so we need to check it separately
           disabled={!isDirty && watch('image') === articleImage}
         >
           Publish article

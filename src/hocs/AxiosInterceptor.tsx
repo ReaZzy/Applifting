@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { PATH_AUTH, PATH_ERROR_PAGE } from '@src/router/paths';
@@ -20,7 +20,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  useEffect(() => {
+  useLayoutEffect(() => {
     appAxios.interceptors.request.use(
       (config) => {
         const token = accessToken ?? getTokenFromLocalStorage();

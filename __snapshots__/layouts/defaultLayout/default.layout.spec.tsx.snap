@@ -6,47 +6,55 @@ exports[`<DefaultLayout /> snapshot 1`] = `
     class="sc-kDvujY deqzft"
   >
     <nav
-      class="sc-bcXHqe VGQoE"
+      class="sc-bcXHqe bRiwpQ"
     >
       <div
-        class="sc-gswNZR gnyjtI"
+        class="sc-gswNZR kROPbl"
       >
         <div
-          class="sc-dkrFOg sc-eDvSVe cdytEU"
+          class="sc-dkrFOg sc-eDvSVe fyYHLd"
         >
-          <a
-            aria-current="page"
-            class="sc-hLBbgP jRuRZg ({ isActive }) => (isActive ? 'active' : '') active"
-            href="/"
-          >
-            <logo.svg
-              height="32px"
-              width="32px"
-            />
-          </a>
-          <a
-            aria-current="page"
-            class="sc-hLBbgP jRuRZg ({ isActive }) => (isActive ? 'active' : '') active"
-            href="/"
-          >
-            Recent Articles
-          </a>
-          <a
-            class="sc-hLBbgP jRuRZg ({ isActive }) => (isActive ? 'active' : '')"
-            href="/about"
-          >
-            About
-          </a>
+          <span>
+            <a
+              aria-current="page"
+              class="sc-hLBbgP dewWss active"
+              href="/"
+            >
+              <logo.svg
+                height="32px"
+                width="32px"
+              />
+            </a>
+          </span>
+          <span>
+            <a
+              aria-current="page"
+              class="sc-hLBbgP dewWss active"
+              href="/"
+            >
+              Recent Articles
+            </a>
+          </span>
+          <span>
+            <a
+              class="sc-hLBbgP dewWss"
+              href="/about"
+            >
+              About
+            </a>
+          </span>
         </div>
         <div
-          class="sc-dkrFOg sc-jSUZER cdytEU bSnNRB"
+          class="sc-dkrFOg sc-jSUZER fyYHLd bSnNRB"
         >
-          <a
-            class="sc-hLBbgP jRuRZg ({ isActive }) => (isActive ? 'active' : '')"
-            href="/login"
-          >
-            Log in
-          </a>
+          <span>
+            <a
+              class="sc-hLBbgP dewWss"
+              href="/login"
+            >
+              Log in
+            </a>
+          </span>
         </div>
       </div>
     </nav>

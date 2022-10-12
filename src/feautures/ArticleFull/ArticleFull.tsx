@@ -71,19 +71,14 @@ const ArticleFull: React.FC = React.memo(() => {
           if (typeof oldData !== 'object' || oldData === null) return oldData;
           const update = (entity: ArticleFullResponse) => {
             const isCommentArticle = entity.articleId === articleId;
-
-            if (isCommentArticle) {
-              const comments = entity.comments.map((entityComment) => {
-                if (
-                  entityComment.commentId === wsEventData?.comment?.commentId
-                ) {
-                  return { ...entityComment, ...wsEventData?.comment };
-                }
+            if (!isCommentArticle) return entity;
+            const comments = entity.comments.map((entityComment) => {
+              if (entityComment.commentId !== wsEventData?.comment?.commentId) {
                 return entityComment;
-              });
-              return { ...entity, comments };
-            }
-            return entity;
+              }
+              return { ...entityComment, ...wsEventData?.comment };
+            });
+            return { ...entity, comments };
           };
 
           return {

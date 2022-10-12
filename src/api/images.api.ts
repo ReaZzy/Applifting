@@ -19,19 +19,15 @@ export const getImage = (imageId: string) =>
     responseType: 'blob',
   });
 
+// NOTE FOR REVIEW: There are a lot of issues on BE, that needs to be resolved
+// on FE. For instance: image deleting, in my opinion it's a BE part
 export const deleteImage = async (imageId: string, articleId?: string) => {
-  try {
-    const res = await appAxios.delete<void>(`/images/${imageId}`);
-    await queryClient.invalidateQueries(getImageQueryKey(imageId));
-    if (articleId) {
-      await queryClient.invalidateQueries(
-        getArticleMoreInfoQueryKey(articleId),
-      );
-    }
-    return res;
-  } catch (e) {
-    console.warn(e);
+  const res = await appAxios.delete<void>(`/images/${imageId}`);
+  await queryClient.invalidateQueries(getImageQueryKey(imageId));
+  if (articleId) {
+    await queryClient.invalidateQueries(getArticleMoreInfoQueryKey(articleId));
   }
+  return res;
 };
 
 export const useImageQuery = (

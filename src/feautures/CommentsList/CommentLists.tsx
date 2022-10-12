@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex, Title } from '@src/components/styled';
 import { ArticleComment } from '@src/types/articles.api.types';
 
-import Comment from './Comment/Comment';
+import Comment from './Comment';
 
 interface CommentsListProps {
   comments: Array<ArticleComment>;

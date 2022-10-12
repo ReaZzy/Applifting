@@ -70,33 +70,31 @@ export const useArticleMoreInfoQuery = (
     options,
   );
 
+// NOTE FOR REVIEW: Usually I use normal axios mutations instead of react-query useMutation
+// because, in my opinion it's overkill to cache post requests which is always different.
+// And useMutation properties like { isLoading } is useless in most cases for mutations
+// as I already have a react-hook-form isSubmitting for it :)
 export const createArticleRequest = async ({
   perex,
   content,
   imageId,
   title,
 }: Omit<CreateNewArticleQuery, 'image'> & { imageId?: string }) => {
-  try {
-    const res = await appAxios.post<ArticleFull>('/articles', {
-      perex,
-      content,
-      imageId,
-      title,
-    });
-    if (res?.status.toString().startsWith('2')) {
-      await queryClient.invalidateQueries(getArticlesQueryKey());
-      await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
-      await queryClient.invalidateQueries(getImageQueryKey(imageId));
-      if (res?.data?.imageId) {
-        await queryClient.invalidateQueries(
-          getImageQueryKey(res?.data?.imageId),
-        );
-      }
-      return res;
+  const res = await appAxios.post<ArticleFull>('/articles', {
+    perex,
+    content,
+    imageId,
+    title,
+  });
+  if (res?.status.toString().startsWith('2')) {
+    await queryClient.invalidateQueries(getArticlesQueryKey());
+    await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
+    await queryClient.invalidateQueries(getImageQueryKey(imageId));
+    if (res?.data?.imageId) {
+      await queryClient.invalidateQueries(getImageQueryKey(res?.data?.imageId));
     }
-  } catch (e) {
-    console.warn(e);
   }
+  return res;
 };
 
 export const patchArticleRequest = async ({
@@ -109,44 +107,29 @@ export const patchArticleRequest = async ({
   imageId?: string;
   articleId: string;
 }) => {
-  try {
-    const res = await appAxios.patch<ArticleFull>(`/articles/${articleId}`, {
-      perex,
-      content,
-      imageId,
-      title,
-    });
-    if (res?.status.toString().startsWith('2')) {
-      await queryClient.invalidateQueries(
-        getArticleMoreInfoQueryKey(articleId),
-      );
-      await queryClient.invalidateQueries(getArticlesQueryKey());
-      await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
-      if (res?.data?.imageId) {
-        await queryClient.invalidateQueries(
-          getImageQueryKey(res?.data?.imageId),
-        );
-      }
-      return res;
+  const res = await appAxios.patch<ArticleFull>(`/articles/${articleId}`, {
+    perex,
+    content,
+    imageId,
+    title,
+  });
+  if (res?.status.toString().startsWith('2')) {
+    await queryClient.invalidateQueries(getArticleMoreInfoQueryKey(articleId));
+    await queryClient.invalidateQueries(getArticlesQueryKey());
+    await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
+    if (res?.data?.imageId) {
+      await queryClient.invalidateQueries(getImageQueryKey(res?.data?.imageId));
     }
-  } catch (e) {
-    console.warn(e);
   }
+  return res;
 };
 
 export const deleteArticleRequest = async (articleId: string) => {
-  try {
-    const res = await appAxios.delete<void>(`/articles/${articleId}`);
-    if (res?.status.toString().startsWith('2')) {
-      await queryClient.invalidateQueries(
-        getArticleMoreInfoQueryKey(articleId),
-      );
-      await queryClient.invalidateQueries(getArticlesQueryKey());
-      await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
-
-      return res;
-    }
-  } catch (e) {
-    console.warn(e);
+  const res = await appAxios.delete<void>(`/articles/${articleId}`);
+  if (res?.status.toString().startsWith('2')) {
+    await queryClient.invalidateQueries(getArticleMoreInfoQueryKey(articleId));
+    await queryClient.invalidateQueries(getArticlesQueryKey());
+    await queryClient.invalidateQueries(getArticlesInfinityQueryKey());
   }
+  return res;
 };

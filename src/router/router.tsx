@@ -12,10 +12,10 @@ const CreateNewArticle = withSuspense(
   React.lazy(() => import('@src/pages/CreateNewArticle/CreateNewArticle')),
 );
 const EditArticle = withSuspense(
-  React.lazy(() => import('@src/pages/EditArticle/EditArticle')),
+  React.lazy(() => import('@src/pages/EditArticle')),
 );
 const ArticleView = withSuspense(
-  React.lazy(() => import('@src/pages/ArticleView/ArticleView')),
+  React.lazy(() => import('@src/pages/ArticleView')),
 );
 const ArticlesAdmin = withSuspense(
   React.lazy(() => import('@src/pages/ArticlesAdmin')),

@@ -1,6 +1,7 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { loginRequest } from '@src/api/auth.api';
 import Button from '@src/components/Button/Button';
 import { Card, Heading } from '@src/components/styled';
 import RHFTextField from '@src/components/TextField/RHFTextField';
@@ -13,10 +14,8 @@ import { setAccessToken } from '@src/store/slices/auth.slice';
 import { useTypedDispatch } from '@src/store/store.hooks';
 import {
   AuthApiLoginQuery,
-  AuthApiLoginQueryResult,
   loginFormValidationSchema,
 } from '@src/types/auth.api.types';
-import { appAxios } from '@src/utils/axios.utils';
 import axios from 'axios';
 
 const LoginForm: React.FC = React.memo(() => {
@@ -38,11 +37,10 @@ const LoginForm: React.FC = React.memo(() => {
     password,
   }) => {
     try {
-      const res = await appAxios.post<AuthApiLoginQueryResult>('/login', {
-        username,
-        password,
-      });
-      return dispatch(setAccessToken(res.data.access_token));
+      const res = await loginRequest({ password, username });
+      if (res?.data) {
+        return dispatch(setAccessToken(res.data.access_token));
+      }
     } catch (err) {
       resetField('password');
 

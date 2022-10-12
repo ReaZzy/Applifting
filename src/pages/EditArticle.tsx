@@ -1,5 +1,5 @@
 import React from 'react';
-import EditArticleForm from '@src/feautures/EditArticleForm/EditArticleForm';
+import EditArticleForm from '@src/feautures/EditArticleForm';
 import { CreateNewArticleWrapper } from '@src/pages/CreateNewArticle/createNewArticle.styles';
 
 const EditArticle: React.FC = () => {

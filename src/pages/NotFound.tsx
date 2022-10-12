@@ -19,7 +19,7 @@ const NotFound: React.FC = () => {
       <Title>
         {location?.state?.from
           ? `Page ${location.state.from} doesn't exist`
-          : `${location.pathname} was not found`}
+          : `Page ${location.pathname} was not found`}
       </Title>
       <Button onClick={handleGoBack}>Go back</Button>
     </Flex>

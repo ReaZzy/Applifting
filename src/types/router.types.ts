@@ -3,6 +3,9 @@ export type RoutePath = Record<
   string | { [key: string]: RoutePath | string }
 >;
 
+// NOTE FOR REVIEW: I separated it for 3 different paths objects for readability
+// reasons
+
 export interface PathsAuth extends RoutePath {
   login: string;
 }

@@ -3,6 +3,10 @@ import {
   setAccessTokenToLocalStorage,
 } from '@src/utils/auth.utils';
 
+// NOTE FOR REVIEW: similar tests should be in other utils, but because of lack of
+// time I think it's enough (for the test task) to specify only several
+// tests for each type of functionality (1 hook test suit, 1 util, 1 component).
+// just imagine that I have done the same for others :)
 describe('Auth utils', () => {
   beforeEach(() => {
     window.localStorage.clear();

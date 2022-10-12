@@ -28,6 +28,9 @@ export const authSlice = createSlice({
 });
 
 export const { setAccessToken } = authSlice.actions;
+
+// NOTE FOR REVIEW: I use here a simple selectors instead of reselect
+// for performance reasons. Reselect is slower for such cases
 export const accessTokenSelector = (state: RootState) => state.auth.accessToken;
 
 export const authReducer = authSlice.reducer;
