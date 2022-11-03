@@ -1,11 +1,11 @@
 import React from 'react';
 import { generatePath } from 'react-router-dom';
-import ServerImage from '@src/components/ServerImage/ServerImage';
 import {
   ArticleContentWrapper,
   ArticleImageWrapper,
   ArticleWrapper,
 } from '@src/feautures/ArticlesList/Article/article.styles';
+import ServerImage from '@src/feautures/ServerImage/ServerImage';
 import { PATH_APP } from '@src/router/paths';
 import { getFormattedDate } from '@src/utils/date.utils';
 import { useTheme } from 'styled-components';

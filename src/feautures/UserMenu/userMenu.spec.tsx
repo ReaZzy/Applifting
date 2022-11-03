@@ -1,5 +1,5 @@
 import UserMenu from '@src/feautures/UserMenu/UserMenu';
-import { render } from '@src/utils/test-utils';
+import { render } from '@src/utils/tests/test-utils';
 
 describe('<UserMenu />', () => {
   it('should be defined', () => {

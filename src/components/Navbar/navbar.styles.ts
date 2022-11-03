@@ -67,7 +67,7 @@ export const NavbarRightItems = styled(ItemsSection)`
   justify-content: flex-end;
 `;
 
-export const NavbarMargin = styled.div<{ margin?: number }>`
+export const NavbarMargin = styled.div<{ margin: number | null }>`
   display: inline-block;
   margin-bottom: ${({ margin }) => `${margin || 56}px`};
 `;

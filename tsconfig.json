@@ -19,14 +19,14 @@
     "isolatedModules": true,
     "noEmit": true,
     "paths": {
-      "test-utils": ["./utils/test-utils"],
+      "test-utils": ["./utils/tests/test-utils"],
       "@src/*": ["./src/*"],
       "@public/*": ["./public/*"]
     },
   },
   "exclude": ["node_modules", "**/node_modules/*", "__snapshots__"],
   "include": ["src",
-    "src/utils/setupTests.ts", "jest.config.ts",
+    "src/utils/tests/setupTests.ts", "jest.config.ts",
     "src/types/globals/index.d.ts"
   ]
 }

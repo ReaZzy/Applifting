@@ -6,11 +6,11 @@ import {
   useArticleMoreInfoQuery,
 } from '@src/api/articles.api';
 import Button from '@src/components/Button/Button';
-import ServerImage from '@src/components/ServerImage/ServerImage';
 import Spinner from '@src/components/Spinner/Spinner';
 import { Flex, Paragraph, Title } from '@src/components/styled';
 import { ContentWrapper } from '@src/feautures/ArticleFull/articleFull.styles';
 import CommentsForm from '@src/feautures/CommentsForm/CommentForm';
+import ServerImage from '@src/feautures/ServerImage/ServerImage';
 import { useReactQuerySubscription } from '@src/hooks/useQuerySubsription';
 import { PATH_APP } from '@src/router/paths';
 import { accessTokenSelector } from '@src/store/slices/auth.slice';
@@ -26,7 +26,7 @@ import { useTheme } from 'styled-components';
 
 import CommentsList from '../CommentsList/CommentLists';
 
-const ArticleFull: React.FC = React.memo(() => {
+const ArticleFull: React.FC = () => {
   const theme = useTheme();
   const queryClient = useQueryClient();
   const accessToken = useTypedSelector(accessTokenSelector);
@@ -122,7 +122,7 @@ const ArticleFull: React.FC = React.memo(() => {
       <CommentsList comments={data?.data?.comments} />
     </Flex>
   );
-});
+};
 
 ArticleFull.displayName = 'ArticleFull';
 export default ArticleFull;

@@ -8,4 +8,4 @@ stats.json
 dist
 __snapshots__
 coverage
-src/utils/fileTransformer.js
+src/utils/tests/fileTransformer.js

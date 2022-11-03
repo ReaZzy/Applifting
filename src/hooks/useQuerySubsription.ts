@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 export const useReactQuerySubscription = <T = unknown>(
   callback: (e: MessageEvent<T>) => void,
@@ -11,11 +11,11 @@ export const useReactQuerySubscription = <T = unknown>(
     );
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     wsCallback.current = callback;
   }, [callback]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     websocket.onmessage = wsCallback.current;
 
     return () => {

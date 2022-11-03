@@ -1,5 +1,5 @@
 import DefaultLayout from '@src/layouts/defaultLayout/Default.layout';
-import { render } from '@src/utils/test-utils';
+import { render } from '@src/utils/tests/test-utils';
 
 describe('<DefaultLayout />', () => {
   it('should be defined', () => {

@@ -1,25 +1,25 @@
 import { RefObject, useEffect, useMemo, useState } from 'react';
 
 type UseResize = (ref: RefObject<Element>) => {
-  width?: number;
-  height?: number;
+  width: number | null;
+  height: number | null;
 };
 
 export const useResize: UseResize = (ref) => {
   const [sizes, setSizes] = useState<{
-    width?: number;
-    height?: number;
+    width: number | null;
+    height: number | null;
   }>({
-    width: undefined,
-    height: undefined,
+    width: null,
+    height: null,
   });
 
   const observer = useMemo(
     () =>
       new ResizeObserver(() => {
         setSizes({
-          width: ref.current?.clientWidth,
-          height: ref.current?.clientHeight,
+          width: ref.current?.clientWidth || null,
+          height: ref.current?.clientHeight || null,
         });
       }),
     [ref],

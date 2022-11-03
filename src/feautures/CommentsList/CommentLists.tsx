@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Flex, Title } from '@src/components/styled';
 import { ArticleComment } from '@src/types/articles.api.types';
 
@@ -9,9 +9,10 @@ interface CommentsListProps {
 }
 
 const CommentsList: React.FC<CommentsListProps> = React.memo(({ comments }) => {
-  const getComments = useMemo(
-    () =>
-      comments.map((comment) => (
+  return (
+    <Flex flexDirection="column">
+      <Title>Comments</Title>
+      {comments.map((comment) => (
         <Comment
           key={comment.commentId}
           commentId={comment.commentId}
@@ -20,13 +21,7 @@ const CommentsList: React.FC<CommentsListProps> = React.memo(({ comments }) => {
           createdAt={comment.createdAt}
           score={comment.score}
         />
-      )),
-    [comments],
-  );
-  return (
-    <Flex flexDirection="column">
-      <Title>Comments</Title>
-      {getComments}
+      ))}
     </Flex>
   );
 });

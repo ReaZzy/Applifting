@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useInfiniteArticlesQuery } from '@src/api/articles.api';
 import Spinner from '@src/components/Spinner/Spinner';
 import { Flex, InvisibleElement } from '@src/components/styled';
@@ -6,7 +6,7 @@ import Article from '@src/feautures/ArticlesList/Article/Article';
 import { useIntersectionObserver } from '@src/hooks/useIntersectionObserver';
 import { useTheme } from 'styled-components';
 
-const ArticlesList: React.FC = React.memo(() => {
+const ArticlesList: React.FC = () => {
   const theme = useTheme();
   const { isLoading, data, fetchNextPage, isFetchingNextPage, isSuccess } =
     useInfiniteArticlesQuery(0, 10, {
@@ -41,32 +41,31 @@ const ArticlesList: React.FC = React.memo(() => {
     },
   );
 
-  const getArticlesList = useMemo(() => {
-    if (!isSuccess || isLoading) return <Spinner />;
-    return data.pages.map((articlesPage) =>
-      articlesPage.data?.items?.map(
-        ({ articleId, title, perex, imageId, lastUpdatedAt }) => (
-          <Article
-            key={articleId}
-            imageId={imageId}
-            articleId={articleId}
-            perex={perex}
-            title={title}
-            lastUpdatedAt={lastUpdatedAt}
-          />
-        ),
-      ),
-    );
-  }, [data?.pages, isLoading, isSuccess]);
-
   return (
     <Flex gap={`${theme.spacing.common * 4}px`} flexDirection="column">
-      {getArticlesList}
+      {!isSuccess || isLoading ? (
+        <Spinner />
+      ) : (
+        data.pages.map((articlesPage) =>
+          articlesPage.data?.items?.map(
+            ({ articleId, title, perex, imageId, lastUpdatedAt }) => (
+              <Article
+                key={articleId}
+                imageId={imageId}
+                articleId={articleId}
+                perex={perex}
+                title={title}
+                lastUpdatedAt={lastUpdatedAt}
+              />
+            ),
+          ),
+        )
+      )}
       {isFetchingNextPage && <Spinner />}
       <InvisibleElement ref={lastElement} />
     </Flex>
   );
-});
+};
 
 ArticlesList.displayName = 'ArticlesList';
 export default ArticlesList;

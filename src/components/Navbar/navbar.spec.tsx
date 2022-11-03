@@ -1,5 +1,5 @@
 import Navbar from '@src/components/Navbar/Navbar';
-import { render } from '@src/utils/test-utils';
+import { render } from '@src/utils/tests/test-utils';
 
 describe('<Navbar />', () => {
   it('should be defined', () => {

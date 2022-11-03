@@ -14,7 +14,7 @@ describe('useResize()', () => {
       },
     } as RefObject<Element>;
     const { result } = renderHook(() => useResize(ref));
-    expect(result.current).toEqual({ width: undefined, height: undefined });
+    expect(result.current).toEqual({ width: null, height: null });
   });
 
   // NOTE FOR REVIEW:
